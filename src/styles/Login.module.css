@@ -1,0 +1,17 @@
+.form {     
+    width: 30%;       
+ }
+
+.login{
+   font-size: 20px;
+}
+
+button { 
+   margin-right: 1em;
+}
+
+
+.error {  
+   height: 3.5em; 
+   width: 30%;  
+}
