@@ -5,11 +5,7 @@ import { authReducer } from "./authReducer";
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
-    //   dialogsPage: dialogsReducer,
-    //   profilePage: profileReducer,
-    //   usersPage: usersReducer,
     auth: authReducer,
-    //   app: initializeReducer,
 });
 
 // let store = createStore(reducers, applyMiddleware(thunkMiddleWare));

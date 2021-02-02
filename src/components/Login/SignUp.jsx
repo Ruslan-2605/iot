@@ -7,10 +7,17 @@ import { setErrorForm } from "../utils/SetErrorForm";
 import { InputController } from "../utils/InputСontroller";
 import { Alert } from "@material-ui/lab";
 import { Button } from 'antd';
+import { signUpThunkCreator } from "../../redux/authReducer";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
-export const SignInReactHookForm = ({ setSignUp, signInThunkCreator }) => {
+export const SignUpReactHookForm = ({ signUpThunkCreator }) => {
 
     const schema = yup.object().shape({
+        email: yup
+            .string()
+            .required("Email is a required field")
+            .email("Not valid Email"),
         username: yup
             .string()
             .required("Username is a required field")
@@ -23,17 +30,19 @@ export const SignInReactHookForm = ({ setSignUp, signInThunkCreator }) => {
             .max(32, "Password must be at most 32 characters")
     });
 
-
-    const { handleSubmit, control, errors, setError } = useForm({
+    const { control, handleSubmit, errors, setError } = useForm({
         defaultValues: {
+            "email": "",
             "password": "",
             "username": "",
         },
         resolver: yupResolver(schema),
     });
+
     const onSubmit = (authData) => {
-        signInThunkCreator(authData, setError);
-    };
+        signUpThunkCreator(authData, setError)
+    }
+
     const onError = (e) => {
         setErrorForm(e, setError)
     };
@@ -41,6 +50,9 @@ export const SignInReactHookForm = ({ setSignUp, signInThunkCreator }) => {
     return (
         <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
             <b>LOGIN</b><br />
+
+            <b>Email: </b><br />
+            <InputController control={control} type="text" name="email" inputError={errors.email} />
 
             <b>Username: </b><br />
             <InputController control={control} type="text" name="username" inputError={errors.username} />
@@ -51,9 +63,15 @@ export const SignInReactHookForm = ({ setSignUp, signInThunkCreator }) => {
                 <Alert severity="error">
                     {errors.error.message}
                 </Alert>}<br />
-            <Button type="primary" htmlType="submit">SIGN IN</Button>
-            <Button type="primary" onClick={() => setSignUp(true)}>SIGN UP</Button>
+            <Button type="primary" htmlType="submit">SIGN UP</Button>
+            <NavLink to="/login/signIn">SIGN IN</NavLink>
         </form >
     );
 }
 
+const mapStateToProps = (state) => {
+    return {}
+};
+export const SignUp = connect(mapStateToProps, {
+    signUpThunkCreator,
+})(SignUpReactHookForm);

@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../styles/Navbar.module.css";
+import styles from "../../styles/Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import {
@@ -17,7 +17,7 @@ export const NavbarComponent = (props) => {
             <div className="logo" />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['']}>
                 <Menu.Item key="1" icon={<UserOutlined />}>
-                    <NavLink to="/login"> LOGIN </NavLink>
+                    <NavLink to="/login/signIn"> LOGIN </NavLink>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<Dashboard />}>
                     <NavLink to="/dashboard"> DASHBOARD </NavLink>

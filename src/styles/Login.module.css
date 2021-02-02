@@ -1,5 +1,5 @@
 .form {     
-    width: 30%;       
+    width: 30%;      
  }
 
 .login{
@@ -9,7 +9,6 @@
 button { 
    margin-right: 1em;
 }
-
 
 .error {  
    height: 3.5em; 
