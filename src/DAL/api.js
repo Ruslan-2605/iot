@@ -1,9 +1,11 @@
+import { debounce } from "@material-ui/core";
 import * as axios from "axios";
+import Cookies from 'js-cookie'
 
 let instance = axios.create({
-    // headers: {
-    //     "API-KEY": "",
-    // },
+    headers: {
+        "withCredentials": true
+    },
     baseURL: "http://localhost:8080/",
 });
 
@@ -13,7 +15,12 @@ export const authAPI = {
 
         return instance
             .post('auth/signIn', authData)
-            .then((response) => response.data)
+            .then((response) => {
+                if (response.status === 200) {
+                    Cookies.set(response.data.username, response.data.token);
+                };
+                return response.data
+            })
 
     },
     signUp(authData) {

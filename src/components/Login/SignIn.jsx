@@ -8,7 +8,7 @@ import { InputController } from "../utils/InputСontroller";
 import { Alert } from "@material-ui/lab";
 import { Button } from 'antd';
 import { NavLink } from "react-router-dom";
-import { signInThunkCreator } from "../../redux/authReducer";
+import { signInThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 
 export const SignInReactHookForm = ({ signInThunkCreator }) => {
@@ -32,7 +32,7 @@ export const SignInReactHookForm = ({ signInThunkCreator }) => {
             "username": "",
         },
         resolver: yupResolver(schema),
-    });
+    })
 
     const onSubmit = (authData) => {
         signInThunkCreator(authData, setError);

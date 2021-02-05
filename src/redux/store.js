@@ -1,5 +1,5 @@
 import thunkMiddleWare from "redux-thunk";
-import { authReducer } from "./authReducer";
+import { authReducer } from "./reducers/authReducer";
 
 
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");

@@ -7,7 +7,7 @@ import { setErrorForm } from "../utils/SetErrorForm";
 import { InputController } from "../utils/InputСontroller";
 import { Alert } from "@material-ui/lab";
 import { Button } from 'antd';
-import { signUpThunkCreator } from "../../redux/authReducer";
+import { signUpThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 

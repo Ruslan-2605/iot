@@ -8,16 +8,23 @@ import {
 } from '@ant-design/icons';
 import '../../index.css';
 import { Dashboard } from "@material-ui/icons";
+import { connect } from "react-redux";
+import { getIsAuth, getUserName } from "../../redux/selectors/authSelector";
+import { deleteCookie } from "../../redux/reducers/authReducer"
+import { Button } from "@material-ui/core";
 const { Sider } = Layout;
 
 
 export const NavbarComponent = (props) => {
+    const logout = () => {
+        props.deleteCookie(props.username)
+    }
     return (
         <Sider trigger={null} collapsible collapsed={props.collapsed}>
-            <div className="logo" />
+            <div className="logo"><div className={styles.username}>{props.isAuth && props.username}</div></div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['']}>
                 <Menu.Item key="1" icon={<UserOutlined />}>
-                    <NavLink to="/login/signIn"> LOGIN </NavLink>
+                    {props.isAuth ? <Button style={{ "color": "white" }} onClick={logout}> Logout </Button> : <NavLink to="/login/signIn"> LOGIN </NavLink>}
                 </Menu.Item>
                 <Menu.Item key="2" icon={<Dashboard />}>
                     <NavLink to="/dashboard"> DASHBOARD </NavLink>
@@ -30,3 +37,12 @@ export const NavbarComponent = (props) => {
     );
 };
 
+const mapStateToProps = (state) => {
+    return {
+        isAuth: getIsAuth(state),
+        username: getUserName(state),
+    }
+};
+export const NavbarContainer = connect(mapStateToProps, {
+    deleteCookie
+})(NavbarComponent);

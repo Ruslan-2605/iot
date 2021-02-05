@@ -1,4 +1,4 @@
-import { authReducer, setAuthUserData } from '../authReducer';
+import { authReducer, setAuthUserData } from '../reducers/authReducer';
 
 const state = {
     username: null,

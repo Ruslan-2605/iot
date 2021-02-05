@@ -16,7 +16,9 @@ export const HeaderComponent = (props) => {
                 className: 'trigger',
                 onClick: () => props.toggle(prev => !prev),
             })}
+
         </Header>
     );
 };
+
 

@@ -1,9 +1,10 @@
-import { authAPI } from "../DAL/api";
+import { authAPI } from "../../DAL/api";
+import Cookies from 'js-cookie'
 
 const initialState = {
     username: null,
     token: null,
-    userId: null,
+    id: null, //нужно удалить 
     isAuth: false,
 };
 
@@ -26,6 +27,21 @@ export const setAuthUserData = (authData) => {
         data: authData,
     };
 };
+
+export const setCookie = (authData) => {
+    return (dispatch) => {
+        dispatch(setAuthUserData(authData))
+    }
+}
+
+export const deleteCookie = (username) => {
+    return (dispatch) => {
+        dispatch(setAuthUserData({ "username": null, "token": null, "isAuth": false }));
+        Cookies.remove(username)
+    }
+}
+
+// Redux-Thunk
 
 export const signInThunkCreator = (authData, setError) => {
     return async (dispatch) => {
