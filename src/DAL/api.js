@@ -1,4 +1,3 @@
-import { debounce } from "@material-ui/core";
 import * as axios from "axios";
 import Cookies from 'js-cookie'
 
@@ -31,10 +30,28 @@ export const authAPI = {
 export const projectAPI = {
     getProjectPage(username, token, page) {
         return instance
-            .get(`/project/page?count=${page}&username=${username}`,
+            .get(`project/page?count=${page}&username=${username}`,
                 { 'headers': { 'Authorization': token } })
             .then((response) => {
                 return response.data
             })
+    },
+    createProject(projectData, token) {
+        return instance
+            .post("project", projectData, { 'headers': { 'Authorization': token } })
+            .then((response) => response.data);
+    },
+    deleteProject(id, token) {
+        return instance
+            .delete(`project/${id}`,
+                { 'headers': { 'Authorization': token } })
+            .then((response) => {
+                return response
+            })
+    },
+    updateProject(projectData, token, id) {
+        return instance
+            .put(`project/${id}`, projectData, { 'headers': { 'Authorization': token } })
+            .then((response) => response.data);
     },
 };

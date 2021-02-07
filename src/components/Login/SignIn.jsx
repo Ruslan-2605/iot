@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import { signInThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 
-export const SignInReactHookForm = ({ signInThunkCreator }) => {
+export const SignInForm = ({ signInThunkCreator }) => {
 
     const schema = yup.object().shape({
         username: yup
@@ -66,5 +66,5 @@ const mapStateToProps = (state) => {
 };
 export const SignIn = connect(mapStateToProps, {
     signInThunkCreator,
-})(SignInReactHookForm);
+})(SignInForm);
 

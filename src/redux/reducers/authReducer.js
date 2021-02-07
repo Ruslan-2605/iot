@@ -41,7 +41,8 @@ export const deleteCookie = (names) => {
                 Cookies.remove(name);
             }
         );
-        dispatch(setAuthUserData({ "username": null, "token": null, "isAuth": false }));
+        //dispatch(setAuthUserData({ "username": null, "token": null, "isAuth": false }));
+        // нужно сделать обнуление
     }
 }
 

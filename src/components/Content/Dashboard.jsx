@@ -1,24 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Content.module.css";
-import Box from '@material-ui/core/Box';
-import { getProjectPageThunkCreator } from "../../redux/reducers/projectReducer";
+import { createProjectThunkCreator, getProjectPageThunkCreator, deleteProjectThunkCreator, updateProjectThunkCreator } from "../../redux/reducers/projectReducer";
 import { connect } from "react-redux";
 import { getUserName, getUserToken } from "../../redux/selectors/authSelector";
 import { getCountPage, getProjects } from "../../redux/selectors/projectSelector";
+import { CreateProjectForm } from "./CreateProjectForm";
+import { Project } from "./Project";
 
-export const Dashboard = (props) => {
+export const Dashboard = ({ username, token, page, projects, ...props }) => {
+
     useEffect(() => {
-        props.getProjectPageThunkCreator(props.username, props.token, props.page)
+        props.getProjectPageThunkCreator(username, token, page)
     }, []);
+
+    const [isCreateForm, setCreateForm] = useState(false);
 
     return (
         <div>
-            {props.projects.map((project, key) =>
-                <Box key={key} component="span" display="block" p={2} m={1} bgcolor="background.paper">
-                    <div>{project.name}</div>
-                    <div>{project.title}</div>
-                </Box>
-            )}
+            <button onClick={() => setCreateForm(true)}>+</button>
+
+            {isCreateForm && <CreateProjectForm
+                token={token}
+                createProjectThunkCreator={props.createProjectThunkCreator}
+                page={page}
+                username={username}
+                setCreateForm={setCreateForm}
+                projectLength={projects.length}
+            />}
+
+            {projects.map((project, key) => <Project
+                project={project}
+                key={key}
+                token={token}
+                page={page}
+                username={username}
+                deleteProjectThunkCreator={props.deleteProjectThunkCreator}
+                updateProjectThunkCreator={props.updateProjectThunkCreator}
+            />)}
         </div>
     );
 };
@@ -33,4 +51,9 @@ const mapStateToProps = (state) => {
 };
 export const DashboardContainer = connect(mapStateToProps, {
     getProjectPageThunkCreator,
+    createProjectThunkCreator,
+    deleteProjectThunkCreator,
+    updateProjectThunkCreator
 })(Dashboard);
+
+
