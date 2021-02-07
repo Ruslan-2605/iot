@@ -5,7 +5,7 @@ import { HeaderComponent } from './components/Header/Header';
 import { NavbarContainer } from './components/Navbar/Navbar';
 import './index.css';
 import { Redirect, Route } from 'react-router-dom';
-import { Dashboard } from './components/Content/Dashboard';
+import { DashboardContainer } from './components/Content/Dashboard';
 import { SignIn } from './components/Login/SignIn';
 import { SignUp } from './components/Login/SignUp';
 import { getIsAuth } from './redux/selectors/authSelector'
@@ -17,14 +17,16 @@ const { Content } = Layout;
 
 export const App = (props) => {
 
-  const authCookie = Cookies.get();
-  if (Object.keys(authCookie).length) {
-    props.setCookie(
-      {
-        "username": Object.keys(authCookie)[0],
-        "token": authCookie[Object.keys(authCookie)],
-        "isAuth": true
-      })
+  if (!props.isAuth) {
+    const authCookie = Cookies.get();
+    if (authCookie.username && authCookie.token) {
+      props.setCookie(
+        {
+          "username": authCookie.username,
+          "token": authCookie.token,
+          "isAuth": true
+        })
+    }
   }
 
   let [collapsed, toggle] = useState(false);
@@ -40,7 +42,7 @@ export const App = (props) => {
           </Route>
           <Route path="/login/signIn" render={() => <SignIn />} />
           <Route path="/login/signUp" render={() => <SignUp />} />
-          <Route path="/dashboard" render={() => <Dashboard />} />
+          <Route path="/dashboard" render={() => <DashboardContainer />} />
         </Content>
       </Layout>
     </Layout>

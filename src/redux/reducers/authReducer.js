@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 const initialState = {
     username: null,
     token: null,
-    id: null, //нужно удалить 
+    tokenValidity: null,
     isAuth: false,
 };
 
@@ -34,10 +34,14 @@ export const setCookie = (authData) => {
     }
 }
 
-export const deleteCookie = (username) => {
+export const deleteCookie = (names) => {
     return (dispatch) => {
+        names.map(
+            (name) => {
+                Cookies.remove(name);
+            }
+        );
         dispatch(setAuthUserData({ "username": null, "token": null, "isAuth": false }));
-        Cookies.remove(username)
     }
 }
 

@@ -17,7 +17,7 @@ const { Sider } = Layout;
 
 export const NavbarComponent = (props) => {
     const logout = () => {
-        props.deleteCookie(props.username)
+        props.deleteCookie(["username", "token"])
     }
     return (
         <Sider trigger={null} collapsible collapsed={props.collapsed}>

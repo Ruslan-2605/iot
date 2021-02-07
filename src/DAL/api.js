@@ -3,9 +3,6 @@ import * as axios from "axios";
 import Cookies from 'js-cookie'
 
 let instance = axios.create({
-    headers: {
-        "withCredentials": true
-    },
     baseURL: "http://localhost:8080/",
 });
 
@@ -17,7 +14,8 @@ export const authAPI = {
             .post('auth/signIn', authData)
             .then((response) => {
                 if (response.status === 200) {
-                    Cookies.set(response.data.username, response.data.token);
+                    Cookies.set("username", response.data.username);
+                    Cookies.set("token", response.data.token);
                 };
                 return response.data
             })
@@ -27,5 +25,16 @@ export const authAPI = {
         return instance
             .post("auth/signUp", authData)
             .then((response) => response.data);
+    },
+};
+
+export const projectAPI = {
+    getProjectPage(username, token, page) {
+        return instance
+            .get(`/project/page?count=${page}&username=${username}`,
+                { 'headers': { 'Authorization': token } })
+            .then((response) => {
+                return response.data
+            })
     },
 };
