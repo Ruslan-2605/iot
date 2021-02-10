@@ -54,10 +54,20 @@ export const signInThunkCreator = (authData, setError) => {
             const response = await authAPI.signIn(authData);
             dispatch(setAuthUserData({ ...response, isAuth: true }));
         } catch (error) {
-            setError("error", {
-                type: error.toJSON().name,
-                message: error.toJSON().message
-            });
+            // Check http server response error
+            if (error.response.data) {
+                setError(error.response.data.field, {
+                    type: error.response.status,
+                    message: error.response.data.message
+                });
+            } else {
+                // Set stack error
+                setError("error", {
+                    type: error.toJSON().name,
+                    message: error.toJSON().message
+                });
+            }
+
         }
     };
 };
@@ -68,10 +78,19 @@ export const signUpThunkCreator = (authData, setError) => {
             const response = await authAPI.signUp(authData);
             dispatch(setAuthUserData(response));
         } catch (error) {
-            setError("error", {
-                type: error.toJSON().name,
-                message: error.toJSON().message
-            });
+            // Check http server response error
+            if (error.response.data) {
+                setError(error.response.data.field, {
+                    type: error.response.status,
+                    message: error.response.data.message
+                });
+            } else {
+                // Set stack error
+                setError("error", {
+                    type: error.toJSON().name,
+                    message: error.toJSON().message
+                });
+            }
         }
 
     };
