@@ -1,3 +1,85 @@
+@media (min-width: 480px){
+    .header{
+        padding: 0 30px 0 30px;
+    }
+    .username{
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+    .content .login{
+        border: 1px solid #000;
+        border-radius: 10px;
+        padding: 7px;
+        margin-right: 12px;
+    }
+    .content .login:hover{
+        transition-duration: 0.5s;
+        box-shadow: 1px 2px 3px black;
+        opacity: 0.95;
+        font-weight: 500;
+    }
+}
+@media (max-width: 479px){
+    .header{
+        padding: 0 10px 0 10px;
+    }
+    .username{
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+    }
+    .content .login{
+        border: 0.5px solid #000;
+        border-radius: 8px;
+        padding: 3px;
+        margin-right: 7px;
+    }
+}
+.header{
+    grid-area: h;
+    background-color: #fff;   
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+}
 .username{
-    text-align: right;
+    line-height: 1.5;
+}
+.content .login{
+    color: #fff;
+    text-decoration: none;
+    background-color: #b3294e;
+    font-weight: 400;
+    opacity: 0.85;
+    box-shadow: 1px 1px 1px black;
+}
+.title{
+    display: flex;
+    box-sizing: border-box;
+}
+.title .text{
+    font-size: 20px;
+    letter-spacing: 1px;  
+    color:#b3294e;
+    font-weight: 700;
+}
+.title .logo{
+    color:#b3294e;
+    padding: 2px 8px 0 0;
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    box-sizing: border-box;
+}
+.content .profileLogo{
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    color: #b3294e;
 }

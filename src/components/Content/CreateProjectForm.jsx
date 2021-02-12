@@ -2,13 +2,12 @@ import React from "react";
 import styles from "../../styles/Content.module.css";
 import { InputController } from "../utils/InputСontroller";
 import { useForm } from "react-hook-form";
-import { Button } from 'antd';
 import { setErrorForm } from "../utils/SetErrorForm";
-import { Alert } from "@material-ui/lab";
+import AddIcon from '@material-ui/icons/Add';
 
 
-export const CreateProjectForm = ({ token, username, page, projectLength, createProjectThunkCreator, setCreateForm }) => {
-
+export const CreateProjectForm = (props) => {
+    const { token, username, page, projectLength, createProjectThunkCreator } = props;
     const { handleSubmit, control, setError, errors } = useForm({
         defaultValues: {
             "name": "",
@@ -34,8 +33,7 @@ export const CreateProjectForm = ({ token, username, page, projectLength, create
             <b>Title: </b><br />
             <InputController control={control} type="text" name="title" inputError={errors.title} />
 
-            <Button type="primary" htmlType="submit">Create</Button>
-            <Button type="primary" onClick={() => setCreateForm(false)}>Close</Button>
+            <button><AddIcon /></button>
         </form >
     )
 }

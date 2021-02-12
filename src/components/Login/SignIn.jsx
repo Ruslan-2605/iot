@@ -5,9 +5,6 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
 import { InputController } from "../utils/InputСontroller";
-import { Alert } from "@material-ui/lab";
-import { Button } from 'antd';
-import { NavLink } from "react-router-dom";
 import { signInThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 
@@ -17,13 +14,13 @@ export const SignInForm = ({ signInThunkCreator }) => {
         username: yup
             .string()
             .required("Username is a required field")
-            .min(5, "Username must be at least 5 characters")
-            .max(16, "Username must be at most 16 characters"),
+            .min(5, "Username size is less than 5")
+            .max(16, "Username max size is 16"),
         password: yup
             .string()
             .required("Password is a required field")
-            .min(8, "Password must be at least 8 characters")
-            .max(32, "Password must be at most 32 characters")
+            .min(8, "Password size is less than 8")
+            .max(32, "Password max size is 32")
     });
 
     const { handleSubmit, control, errors, setError } = useForm({
@@ -34,8 +31,8 @@ export const SignInForm = ({ signInThunkCreator }) => {
         resolver: yupResolver(schema),
     })
 
-    const onSubmit = (authData) => {
-        signInThunkCreator(authData, setError);
+    const onSubmit = async (authData, setError) => {
+        await signInThunkCreator(authData, setError);
     };
 
     const onError = (e) => {
@@ -43,20 +40,16 @@ export const SignInForm = ({ signInThunkCreator }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
-            <b>LOGIN</b><br />
+        <form onSubmit={handleSubmit((authData) => onSubmit(authData, setError), onError)} className={styles.form}>
+            <div className={styles.title}>Login</div>
 
-            <b>Username: </b><br />
-            <InputController control={control} type="text" name="username" inputError={errors.username} />
+            <InputController control={control} type="text" name="username" placeholder="username" inputError={errors.username} />
 
-            <b>Password: </b><br />
-            <InputController control={control} type="password" name="password" inputError={errors.password} />
-            {errors.error &&
-                <Alert severity="error">
-                    {errors.error.message}
-                </Alert>}<br />
-            <Button type="primary" htmlType="submit">SIGN IN</Button>
-            <NavLink to="/login/signUp">SIGN UP</NavLink>
+            <InputController control={control} type="password" name="password" placeholder="password" inputError={errors.password} />
+
+            <div className={styles.error}>{errors.error && errors.error.message}</div>
+
+            <button className={styles.btn}>Sign In</button>
         </form >
     );
 }

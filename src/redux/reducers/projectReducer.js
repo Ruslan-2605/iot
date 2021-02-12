@@ -13,6 +13,10 @@ export const projectReducer = (state = initialState, action) => {
                 ...state,
                 projects: action.data,
             };
+
+        case "LOGOUT":
+            return initialState;
+
         default:
             return state;
     }

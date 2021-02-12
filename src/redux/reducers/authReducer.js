@@ -10,11 +10,15 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
+
         case "SET-AUTH-USER-DATA":
             return {
                 ...state,
                 ...action.data,
             };
+
+        case "LOGOUT":
+            return initialState;
 
         default:
             return state;
@@ -28,21 +32,26 @@ export const setAuthUserData = (authData) => {
     };
 };
 
+export const logoutActionCreator = () => {
+    return {
+        type: "LOGOUT",
+    };
+};
+
 export const setCookie = (authData) => {
     return (dispatch) => {
         dispatch(setAuthUserData(authData))
     }
 }
 
-export const deleteCookie = (names) => {
+export const logout = (names) => {
     return (dispatch) => {
+        dispatch(logoutActionCreator());
         names.map(
             (name) => {
                 Cookies.remove(name);
             }
         );
-        //dispatch(setAuthUserData({ "username": null, "token": null, "isAuth": false }));
-        // нужно сделать обнуление
     }
 }
 

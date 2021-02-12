@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "../../styles/Content.module.css";
-import { createProjectThunkCreator, getProjectPageThunkCreator, deleteProjectThunkCreator, updateProjectThunkCreator } from "../../redux/reducers/projectReducer";
+import {
+    createProjectThunkCreator, getProjectPageThunkCreator,
+    deleteProjectThunkCreator, updateProjectThunkCreator
+} from "../../redux/reducers/projectReducer";
 import { connect } from "react-redux";
 import { getUserName, getUserToken } from "../../redux/selectors/authSelector";
 import { getCountPage, getProjects } from "../../redux/selectors/projectSelector";
-import { CreateProjectForm } from "./CreateProjectForm";
 import { Project } from "./Project";
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import AddIcon from '@material-ui/icons/Add';
 
 export const Dashboard = ({ username, token, page, projects, ...props }) => {
 
@@ -13,30 +18,34 @@ export const Dashboard = ({ username, token, page, projects, ...props }) => {
         props.getProjectPageThunkCreator(username, token, page)
     }, []);
 
-    const [isCreateForm, setCreateForm] = useState(false);
-
     return (
-        <div>
-            <button onClick={() => setCreateForm(true)}>+</button>
 
-            {isCreateForm && <CreateProjectForm
-                token={token}
-                createProjectThunkCreator={props.createProjectThunkCreator}
-                page={page}
-                username={username}
-                setCreateForm={setCreateForm}
-                projectLength={projects.length}
-            />}
-
-            {projects.map((project, key) => <Project
-                project={project}
-                key={key}
-                token={token}
-                page={page}
-                username={username}
-                deleteProjectThunkCreator={props.deleteProjectThunkCreator}
-                updateProjectThunkCreator={props.updateProjectThunkCreator}
-            />)}
+        <div className={styles.dashboard}>
+            <div className={styles.paginator}>
+                <button><ArrowBackIcon /></button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button><ArrowForwardIcon /></button>
+            </div>
+            <div className={styles.projects}>
+                {projects.map((project, key) => <Project
+                    project={project}
+                    key={key}
+                    token={token}
+                    page={page}
+                    username={username}
+                    deleteProjectThunkCreator={props.deleteProjectThunkCreator}
+                    updateProjectThunkCreator={props.updateProjectThunkCreator}
+                />)}
+                <div className={styles.project}>
+                    <input className={styles.input}></input>
+                    <input className={styles.input}></input>
+                    <div className={styles.addIcon}>
+                        <button><AddIcon /></button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,48 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Navbar.module.css";
 import { NavLink } from "react-router-dom";
-import { Layout, Menu } from 'antd';
-import {
-    UserOutlined,
-    UploadOutlined,
-} from '@ant-design/icons';
 import '../../index.css';
-import { Dashboard } from "@material-ui/icons";
 import { connect } from "react-redux";
-import { getIsAuth, getUserName } from "../../redux/selectors/authSelector";
-import { deleteCookie } from "../../redux/reducers/authReducer"
-import { Button } from "@material-ui/core";
-const { Sider } = Layout;
+import { getIsAuth } from "../../redux/selectors/authSelector";
+import { logout } from "../../redux/reducers/authReducer"
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import InfoSharpIcon from '@material-ui/icons/InfoSharp';
+import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 
-
-export const NavbarComponent = (props) => {
-    const logout = () => {
-        props.deleteCookie(["username", "token"])
-    }
+export const NavbarComponent = ({ isAuth, logout }) => {
+    const [icon, setIcon] = useState(null);
     return (
-        <Sider trigger={null} collapsible collapsed={props.collapsed}>
-            <div className="logo"><div className={styles.username}>{props.isAuth && props.username}</div></div>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['']}>
-                <Menu.Item key="1" icon={<UserOutlined />}>
-                    {props.isAuth ? <Button style={{ "color": "white" }} onClick={logout}> Logout </Button> : <NavLink to="/login/signIn"> LOGIN </NavLink>}
-                </Menu.Item>
-                <Menu.Item key="2" icon={<Dashboard />}>
-                    <NavLink to="/dashboard"> DASHBOARD </NavLink>
-                </Menu.Item>
-                <Menu.Item key="3" icon={<UploadOutlined />}>
-                    <NavLink to="#"> nav 3 </NavLink>
-                </Menu.Item>
-            </Menu>
-        </Sider>
+        <div className={styles.navbar}>
+            {isAuth ?
+                <div className={styles.icons}>
+                    <NavLink data-title="Logout"
+                        className={styles.icon} onClick={() => { logout(["username", "token"]) }} to="#">
+                        <ExitToAppIcon />
+                    </NavLink>
+                    <NavLink data-title="Dashboard"
+                        className={icon === 1 ? styles.icon + " " + styles.iconSelected : styles.icon} onClick={() => setIcon(1)} to="/dashboard">
+                        <DashboardIcon />
+                    </NavLink>
+                </div>
+                :
+                <div className={styles.icons}>
+                    <NavLink data-title="Info"
+                        className={icon === 3 ? styles.icon + " " + styles.iconSelected : styles.icon} onClick={() => setIcon(3)} to="#">
+                        <InfoSharpIcon />
+                    </NavLink>
+                    <NavLink data-title="Tutorial"
+                        className={icon === 4 ? styles.icon + " " + styles.iconSelected : styles.icon} onClick={() => setIcon(4)} to="#">
+                        <PersonalVideoIcon />
+                    </NavLink>
+                </div>
+            }
+        </div>
     );
 };
 
 const mapStateToProps = (state) => {
     return {
         isAuth: getIsAuth(state),
-        username: getUserName(state),
     }
 };
 export const NavbarContainer = connect(mapStateToProps, {
-    deleteCookie
+    logout
 })(NavbarComponent);

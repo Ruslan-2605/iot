@@ -1,5 +1,75 @@
-.username{
-    font-size: 15px;
+@media (min-width: 480px){
+    .navbar{
+        height: 100vh;
+    }
+    .icons{
+        flex-direction: column;  
+        align-items: center;
+    }
+    .icon{
+        width: 100%;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);    
+    }
+    .icon:hover::after {
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        content: attr(data-title);
+        font-size: 10px;
+       }
+}
+@media (max-width: 479px){
+    .navbar{
+        width: 100%;
+    }
+    .icons{
+        display: flex;   
+        box-sizing: border-box;   
+        justify-content: center;
+        padding-top: 10px;           
+    }
+    .icon{
+        padding-right: 16px;
+        padding-left: 16px;
+        border-left: 1px solid rgba(0, 0, 0, 0.1);
+        width: 60px;  
+    }
+    .icon:after{
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        content: attr(data-title);
+        font-size: 8px;
+    }
+    .icon:last-child{
+        border-right: 1px solid rgba(0, 0, 0, 0.2); 
+    }
+}
+
+.navbar{
+    grid-area: n;
+    background-color: #343a40;
+}
+.icons{
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.icon{
+    text-decoration: none;
     color: white;
-    text-align: center;
+    opacity: 0.7;     
+}
+.icon:hover{
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.08)
+}
+.iconSelected{
+    transition-duration: 0.5s;
+    color: #b3294e;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.08)
 }

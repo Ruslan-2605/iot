@@ -2,10 +2,10 @@ import React from "react";
 import styles from "../../styles/Content.module.css";
 import { InputController } from "../utils/InputСontroller";
 import { useForm } from "react-hook-form";
-import { Button } from 'antd';
 import { setErrorForm } from "../utils/SetErrorForm";
 
-export const UpdateProjectForm = ({ token, username, id, page, updateProjectThunkCreator, setIsUpdate }) => {
+export const UpdateProjectForm = (props) => {
+    const { token, username, id, page, updateProjectThunkCreator, setIsUpdate } = props;
 
     const { handleSubmit, control, setError, errors } = useForm({
         defaultValues: {
@@ -32,8 +32,8 @@ export const UpdateProjectForm = ({ token, username, id, page, updateProjectThun
             <b>Title: </b><br />
             <InputController control={control} type="text" name="title" inputError={errors.title} />
 
-            <Button type="primary" htmlType="submit">Update</Button>
-            <Button type="primary" onClick={() => setIsUpdate(false)}>Close</Button>
+            <button type="primary" htmlType="submit">Update</button>
+            <button type="primary" onClick={() => setIsUpdate(false)}>Close</button>
         </form >
     )
 }

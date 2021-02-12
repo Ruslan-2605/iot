@@ -1,0 +1,20 @@
+@media (min-width: 480px){
+    .wrapper{
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        grid-template-rows: 60px 1fr;
+        grid-template-areas: "h h" "n c";
+    }
+}
+@media (max-width: 479px){
+    .wrapper{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 60px 60px 1fr;
+        grid-template-areas: "h" "n" "c";
+    }
+}
+.wrapper-content{
+    grid-area: c;
+    height: 100vh;  
+}
