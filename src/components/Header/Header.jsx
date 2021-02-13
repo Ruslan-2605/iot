@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Header.module.css";
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import { getIsAuth, getUserName } from "../../redux/selectors/authSelector";
 import { connect } from "react-redux";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GroupSharpIcon from '@material-ui/icons/GroupSharp';
-import { NavLink } from "react-router-dom";
+import { SignIn } from "../Login/SignIn"
+import { SignUp } from "../Login/SignUp"
+import { Modal } from "../utils/Modal"
 
 export const HeaderComponent = ({ isAuth, username }) => {
+    // Состояние модального окна
+    const [isSignIn, setSignIn] = useState(false);
+    const [isSignUp, setSignUp] = useState(false);
+
     return (
         <div className={styles.header}>
-
             <div className={styles.title}>
                 <div className={styles.logo}><HomeWorkIcon /></div>
                 <div className={styles.text}>IOT</div>
@@ -22,8 +27,10 @@ export const HeaderComponent = ({ isAuth, username }) => {
                     <GroupSharpIcon className={styles.profileLogo} />
                 </div> :
                 <div className={styles.content}>
-                    <NavLink className={styles.login} to="/signIn">Sign In</NavLink>
-                    <NavLink className={styles.login} to="/signUp">Sign Up</NavLink>
+                    <button className={styles.login} onClick={() => setSignIn(true)}>Sign In</button>
+                    <button className={styles.login} onClick={() => setSignUp(true)}>Sign Up</button>
+                    <Modal isModal={isSignIn} setModal={setSignIn} title="Sign In"><SignIn /></Modal>
+                    <Modal isModal={isSignUp} setModal={setSignUp} title="Sign Up"><SignUp /></Modal>
                     <ExitToAppIcon />
                 </div>
             }

@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import styles from "../../styles/Login.module.css";
+import styles from "../../styles/Form.module.css";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
-import { InputController } from "../utils/InputСontroller";
+import { InputController } from "../utils/FormСontrollers";
 import { signInThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 
@@ -31,8 +31,8 @@ export const SignInForm = ({ signInThunkCreator }) => {
         resolver: yupResolver(schema),
     })
 
-    const onSubmit = async (authData, setError) => {
-        await signInThunkCreator(authData, setError);
+    const onSubmit = (authData, setError) => {
+        signInThunkCreator(authData, setError);
     };
 
     const onError = (e) => {
@@ -41,11 +41,10 @@ export const SignInForm = ({ signInThunkCreator }) => {
 
     return (
         <form onSubmit={handleSubmit((authData) => onSubmit(authData, setError), onError)} className={styles.form}>
-            <div className={styles.title}>Login</div>
 
-            <InputController control={control} type="text" name="username" placeholder="username" inputError={errors.username} />
+            <InputController control={control} type="text" name="username" placeholder="Username" error={errors.username} />
 
-            <InputController control={control} type="password" name="password" placeholder="password" inputError={errors.password} />
+            <InputController control={control} type="password" name="password" placeholder="Password" error={errors.password} />
 
             <div className={styles.error}>{errors.error && errors.error.message}</div>
 

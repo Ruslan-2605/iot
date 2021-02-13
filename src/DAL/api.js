@@ -5,6 +5,7 @@ let instance = axios.create({
     baseURL: "http://localhost:8080/",
 });
 
+
 export const authAPI = {
 
     signIn(authData) {
@@ -26,6 +27,7 @@ export const authAPI = {
             .then((response) => response.data);
     },
 };
+
 
 export const projectAPI = {
     getProjectPage(username, token, page) {

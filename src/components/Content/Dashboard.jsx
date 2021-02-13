@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/Content.module.css";
 import {
     createProjectThunkCreator, getProjectPageThunkCreator,
@@ -10,17 +10,26 @@ import { getCountPage, getProjects } from "../../redux/selectors/projectSelector
 import { Project } from "./Project";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import AddIcon from '@material-ui/icons/Add';
+import { Modal } from "../utils/Modal"
+import { CUProjectForm } from "./CUProjectForm";
 
 export const Dashboard = ({ username, token, page, projects, ...props }) => {
+
+    // Состояние модального окна
+    const [isCreateProject, setCreateProject] = useState(false);
 
     useEffect(() => {
         props.getProjectPageThunkCreator(username, token, page)
     }, []);
 
+    const createProjectSubmit = (projectData, setError) => {
+        props.createProjectThunkCreator(projectData, token, username, page, projects.length, setError);
+    };
+
     return (
 
         <div className={styles.dashboard}>
+            {/* Pagination */}
             <div className={styles.paginator}>
                 <button><ArrowBackIcon /></button>
                 <button>2</button>
@@ -28,6 +37,7 @@ export const Dashboard = ({ username, token, page, projects, ...props }) => {
                 <button>4</button>
                 <button><ArrowForwardIcon /></button>
             </div>
+            {/* Projects */}
             <div className={styles.projects}>
                 {projects.map((project, key) => <Project
                     project={project}
@@ -38,15 +48,18 @@ export const Dashboard = ({ username, token, page, projects, ...props }) => {
                     deleteProjectThunkCreator={props.deleteProjectThunkCreator}
                     updateProjectThunkCreator={props.updateProjectThunkCreator}
                 />)}
-                <div className={styles.project}>
-                    <input className={styles.input}></input>
-                    <input className={styles.input}></input>
-                    <div className={styles.addIcon}>
-                        <button><AddIcon /></button>
-                    </div>
+                {/* Create Project Card */}
+                <div onClick={() => setCreateProject(true)} className={styles.project + " " + styles.creator}>
+                    <div className={styles.name}>Create project</div>
                 </div>
+                <Modal isModal={isCreateProject} setModal={setCreateProject} title="Create Project">
+                    <CUProjectForm
+                        onSubmit={createProjectSubmit}
+                        btnText="Create"
+                    />
+                </Modal>
             </div>
-        </div>
+        </div >
     );
 };
 

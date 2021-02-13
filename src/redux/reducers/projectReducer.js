@@ -1,5 +1,5 @@
+import { setErrorInThunk } from "../../components/utils/setErrorInThunk";
 import { projectAPI } from "../../DAL/api";
-
 
 const initialState = {
     page: 1,
@@ -47,10 +47,7 @@ export const createProjectThunkCreator = (projectData, token, username, page, pr
                 dispatch(getProjectPageThunkCreator(username, token, page))
             }
         } catch (error) {
-            setError(error.response.data.field, {
-                type: error.response.status,
-                message: error.response.data.message
-            });
+            setErrorInThunk(error, setError);
         }
     };
 };
@@ -68,10 +65,7 @@ export const updateProjectThunkCreator = (projectData, token, id, username, page
             const response = await projectAPI.updateProject(projectData, token, id);
             dispatch(getProjectPageThunkCreator(username, token, page))
         } catch (error) {
-            setError(error.response.data.field, {
-                type: error.response.status,
-                message: error.response.data.message
-            });
+            setErrorInThunk(error, setError);
         }
     };
 };

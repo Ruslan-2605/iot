@@ -8,8 +8,6 @@ import { HeaderContainer } from './components/Header/Header';
 import { NavbarContainer } from './components/Navbar/Navbar';
 import { DashboardContainer } from './components/Content/Dashboard';
 import { Route } from 'react-router-dom';
-import { SignIn } from './components/Login/SignIn';
-import { SignUp } from './components/Login/SignUp';
 
 export const App = (props) => {
   // Устанавливаю куки в стэйт если они присутствуют
@@ -30,8 +28,6 @@ export const App = (props) => {
       <HeaderContainer />
       <NavbarContainer />
       <div className="wrapper-content">
-        <Route path="/signIn" render={() => <SignIn />} />
-        <Route path="/signUp" render={() => <SignUp />} />
         <Route path="/dashboard" render={() => <DashboardContainer />} />
       </div>
     </div>
