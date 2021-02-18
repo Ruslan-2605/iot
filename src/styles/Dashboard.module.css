@@ -100,7 +100,7 @@
     box-shadow: 1px 2px 6px rgba(52,58,64, 0.7);
 }
 .name{
-    color: #343a40;
+    color: #b3294e;
     font-size: 25px;
     font-weight: 600;
     margin-top: 3px;
@@ -109,8 +109,7 @@
     color: #343a40;
     font-size: 16px;
     font-weight: 500;
-    overflow: hidden;
-    margin: 2px 2px 0 2px;
+    padding: 2px 5px 0 5px;
 }
 .btn{
     display: flex;
@@ -150,5 +149,5 @@
     box-shadow: 0.5px 1px 1px #343a40;
 }
 .project.creator{
-    background-color: rgba(0,0,0, 0.04);
+    background-color: rgba(0,0,0, 0.03);
 }

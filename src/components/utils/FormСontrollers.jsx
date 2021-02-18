@@ -1,43 +1,46 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import React, { useState } from "react";
 import styles from "../../styles/Form.module.css";
 
-export const InputController = ({ control, name, type, placeholder = null, error = null }) => {
+export const Input = ({ register, name, type, placeholder = null, error = null }) => {
+
+    // const [state, setState] = useState(value);
+
+    // const onChange = (e) => {
+    //     setState(e.target.value);
+    // };
+
     return (
         <div>
-            <Controller
-                control={control}
+            <input className={styles.input}
+                ref={register}
+                // onChange={onChange}
+                // value={state}
+                type={type}
                 name={name}
-                render={({ onChange, onBlur, value }) => (
-                    <input className={styles.input}
-                        type={type}
-                        placeholder={placeholder}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                    />
-                )}
+                placeholder={placeholder}
             />
             <div className={styles.error}>{error && error.message}</div>
         </div >
     )
 }
 
-export const TextareaController = ({ control, name, type, placeholder = null, error = null }) => {
+export const Textarea = ({ register, name, type, placeholder = null, error = null }) => {
+
+    // const [state, setState] = useState(value);
+
+    // const onChange = (e) => {
+    //     setState(e.target.value);
+    // };
+
     return (
         <div>
-            <Controller
-                control={control}
+            <textarea className={styles.textarea}
+                ref={register}
+                type={type}
                 name={name}
-                render={({ onChange, onBlur, value }) => (
-                    <textarea className={styles.textarea}
-                        type={type}
-                        placeholder={placeholder}
-                        onChange={onChange}
-                        onBlur={onBlur}
-                        selected={value}
-                    />
-                )}
+                placeholder={placeholder}
+            // value={state}
+            // onChange={onChange}
             />
             <div className={styles.error}>{error && error.message}</div>
         </div >

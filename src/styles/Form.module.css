@@ -4,7 +4,7 @@
     }
     .textarea{
       min-width: 350px;
-      min-height: 80px;
+      min-height: 70px;
     }
     .btn{
       border-radius: 12px;
@@ -30,7 +30,7 @@
    }
    .textarea{
       min-width: 300px;
-      min-height: 60px;
+      min-height: 50px;
    }
 }
 @media (max-width: 350px){
@@ -39,7 +39,7 @@
     }
     .textarea{
       min-width: 250px;
-      min-height: 50px;
+      min-height: 40px;
    }
 }
 form{
@@ -83,6 +83,7 @@ form{
    box-sizing: border-box;
    padding: 1px 10px;
    background-color: #fff;
+   resize: none;
 }
 .textarea:focus{
    border: 1.5px solid rgba(179, 41, 78, 1);

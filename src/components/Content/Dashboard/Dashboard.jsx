@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../styles/Content.module.css";
+import styles from "../../../styles/Dashboard.module.css";
 import {
     createProjectThunkCreator, getProjectPageThunkCreator,
     deleteProjectThunkCreator, updateProjectThunkCreator
-} from "../../redux/reducers/projectReducer";
+} from "../../../redux/reducers/projectReducer";
 import { connect } from "react-redux";
-import { getUserName, getUserToken } from "../../redux/selectors/authSelector";
-import { getCountPage, getProjects } from "../../redux/selectors/projectSelector";
-import { Project } from "./Project";
+import { getUserName, getUserToken } from "../../../redux/selectors/authSelector";
+import { getCountPage, getProjects } from "../../../redux/selectors/projectSelector";
+import { DashboardItem } from "./DashboardItem";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Modal } from "../utils/Modal"
-import { CUProjectForm } from "./CUProjectForm";
+import { Modal } from "../../utils/Modal"
+import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
+import { CreateProjectForm } from "./CreateProjectForm";
 
-export const Dashboard = ({ username, token, page, projects, ...props }) => {
+export const Dashboard = (props) => {
+
+    const { username, token, page, projects,
+        deleteProjectThunkCreator, updateProjectThunkCreator,
+        createProjectThunkCreator, getProjectPageThunkCreator } = props;
 
     // Состояние модального окна
     const [isCreateProject, setCreateProject] = useState(false);
 
     useEffect(() => {
-        props.getProjectPageThunkCreator(username, token, page)
+        getProjectPageThunkCreator(username, token, page)
     }, []);
-
-    const createProjectSubmit = (projectData, setError) => {
-        props.createProjectThunkCreator(projectData, token, username, page, projects.length, setError);
-    };
 
     return (
 
@@ -39,25 +40,28 @@ export const Dashboard = ({ username, token, page, projects, ...props }) => {
             </div>
             {/* Projects */}
             <div className={styles.projects}>
-                {projects.map((project, key) => <Project
-                    project={project}
-                    key={key}
-                    token={token}
-                    page={page}
-                    username={username}
-                    deleteProjectThunkCreator={props.deleteProjectThunkCreator}
-                    updateProjectThunkCreator={props.updateProjectThunkCreator}
-                />)}
+
                 {/* Create Project Card */}
                 <div onClick={() => setCreateProject(true)} className={styles.project + " " + styles.creator}>
                     <div className={styles.name}>Create project</div>
                 </div>
-                <Modal isModal={isCreateProject} setModal={setCreateProject} title="Create Project">
-                    <CUProjectForm
-                        onSubmit={createProjectSubmit}
-                        btnText="Create"
+
+                {projects.map((project) =>
+                    <DashboardItem
+                        key={project.id}
+                        project={project}
+                        token={token}
+                        page={page}
+                        username={username}
+                        deleteProjectThunkCreator={deleteProjectThunkCreator}
+                        updateProjectThunkCreator={updateProjectThunkCreator}
                     />
+                )}
+
+                <Modal isModal={isCreateProject} setModal={setCreateProject} title="Create Project">
+                    <CreateProjectForm createProjectThunkCreator={createProjectThunkCreator} />
                 </Modal>
+
             </div>
         </div >
     );
@@ -71,11 +75,11 @@ const mapStateToProps = (state) => {
         projects: getProjects(state)
     }
 };
-export const DashboardContainer = connect(mapStateToProps, {
+export const DashboardContainer = withAuthRedirect(connect(mapStateToProps, {
     getProjectPageThunkCreator,
     createProjectThunkCreator,
     deleteProjectThunkCreator,
     updateProjectThunkCreator
-})(Dashboard);
+})(Dashboard));
 
 

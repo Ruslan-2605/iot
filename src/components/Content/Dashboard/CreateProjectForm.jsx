@@ -1,14 +1,12 @@
 import React from "react";
-import { InputController, TextareaController } from "../utils/FormСontrollers";
+import { Input, Textarea } from "../../utils/FormСontrollers";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../utils/SetErrorForm";
+import { setErrorForm } from "../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from "../../styles/Form.module.css";
+import styles from "../../../styles/Form.module.css";
 
-export const CUProjectForm = (props) => {
-
-    const { onSubmit, btnText } = props;
+export const CreateProjectForm = (createProjectThunkCreator) => {
 
     const schema = yup.object().shape({
         name: yup
@@ -21,10 +19,10 @@ export const CUProjectForm = (props) => {
             .max(128, "Title max size is 128")
     });
 
-    const { handleSubmit, control, setError, errors } = useForm({
+    const { handleSubmit, register, setError, errors } = useForm({
         defaultValues: {
             "name": "",
-            "title": "",
+            "title": ""
         },
         resolver: yupResolver(schema),
     })
@@ -33,14 +31,18 @@ export const CUProjectForm = (props) => {
         setErrorForm(e, setError);
     };
 
+    const onSubmit = (projectData, setError) => {
+        createProjectThunkCreator(projectData, token, projects.length, setError);
+    };
+
     return (
         <form onSubmit={handleSubmit((projectData) => onSubmit(projectData, setError), onError)}>
 
-            <InputController control={control} type="text" placeholder="Name" name="name" error={errors.name} />
+            <Input register={register} value="state" type="text" placeholder="Name" name="name" error={errors.name} />
 
-            <TextareaController control={control} type="text" placeholder="Title" name="title" error={errors.title} />
+            <Textarea register={register} type="text" placeholder="Title" name="title" error={errors.title} />
 
-            <button className={styles.btn}>{btnText}</button>
+            <button className={styles.btn}>Create</button>
         </form >
     )
 }

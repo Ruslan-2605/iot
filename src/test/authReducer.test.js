@@ -13,6 +13,5 @@ it('authorization data should be added', () => {
     const newState = authReducer(state, action)
     expect(newState.username).toBe("Ruslan");
     expect(newState.token).toBe("token");
-    expect(newState.userId).toBe(1);
     expect(newState.isAuth).toBe(true);
 });

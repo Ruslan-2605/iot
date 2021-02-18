@@ -9,7 +9,12 @@ export const getCountPage = (state) => {
 export const getProjects = (state) => {
     return getProject(state).projects
 }
-
+export const getIconSelected = (state) => {
+    return getProject(state).iconSelected
+}
+export const getCountPage = (state) => {
+    return getProject(state).countPage
+}
 // export const getDifficultDate = createSelector(select1, select2, (state1, state2) => {
 //    return difficult data
 //)}

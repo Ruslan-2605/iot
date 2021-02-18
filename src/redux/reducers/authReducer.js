@@ -1,6 +1,9 @@
-import { authAPI } from "../../DAL/api";
+import { authAPI } from "../../DAL/authAPI";
 import Cookies from 'js-cookie'
 import { setErrorInThunk } from "../../components/utils/setErrorInThunk";
+
+const SET_AUTH_USER_DATA = "SET-AUTH-USER-DATA";
+const LOGOUT = "LOGOUT";
 
 const initialState = {
     username: null,
@@ -12,13 +15,13 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case "SET-AUTH-USER-DATA":
+        case SET_AUTH_USER_DATA:
             return {
                 ...state,
                 ...action.data,
             };
 
-        case "LOGOUT":
+        case LOGOUT:
             return initialState;
 
         default:
@@ -26,6 +29,7 @@ export const authReducer = (state = initialState, action) => {
     }
 };
 
+//Action
 export const setAuthUserData = (authData) => {
     return {
         type: "SET-AUTH-USER-DATA",
@@ -33,11 +37,13 @@ export const setAuthUserData = (authData) => {
     };
 };
 
-export const logoutActionCreator = () => {
+export const logoutAction = () => {
     return {
         type: "LOGOUT",
     };
 };
+
+//Action Creator
 
 export const setCookie = (authData) => {
     return (dispatch) => {
@@ -47,7 +53,7 @@ export const setCookie = (authData) => {
 
 export const logout = (names) => {
     return (dispatch) => {
-        dispatch(logoutActionCreator());
+        dispatch(logoutAction());
         names.map(
             (name) => {
                 Cookies.remove(name);

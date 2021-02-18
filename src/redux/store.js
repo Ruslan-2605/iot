@@ -1,5 +1,6 @@
 import thunkMiddleWare from "redux-thunk";
 import { authReducer } from "./reducers/authReducer";
+import { deviceReducer } from "./reducers/deviceReducer";
 import { projectReducer } from "./reducers/projectReducer";
 
 
@@ -7,7 +8,8 @@ const { createStore, combineReducers, applyMiddleware, compose } = require("redu
 
 let reducers = combineReducers({
     auth: authReducer,
-    project: projectReducer
+    project: projectReducer,
+    device: deviceReducer,
 });
 
 // let store = createStore(reducers, applyMiddleware(thunkMiddleWare));

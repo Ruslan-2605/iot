@@ -4,7 +4,7 @@ import styles from "../../styles/Form.module.css";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
-import { InputController } from "../utils/FormСontrollers";
+import { Input } from "../utils/FormСontrollers";
 import { signUpThunkCreator } from "../../redux/reducers/authReducer";
 import { connect } from "react-redux";
 
@@ -27,7 +27,7 @@ export const SignUpForm = ({ signUpThunkCreator }) => {
             .max(32, "Password max size is 32")
     });
 
-    const { control, handleSubmit, errors, setError } = useForm({
+    const { register, handleSubmit, errors, setError } = useForm({
         defaultValues: {
             "email": "",
             "password": "",
@@ -47,11 +47,11 @@ export const SignUpForm = ({ signUpThunkCreator }) => {
     return (
         <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
 
-            <InputController control={control} type="text" name="email" placeholder="email" error={errors.email} />
+            <Input register={register} type="text" name="email" placeholder="email" error={errors.email} />
 
-            <InputController control={control} type="text" name="username" placeholder="username" error={errors.username} />
+            <Input register={register} type="text" name="username" placeholder="username" error={errors.username} />
 
-            <InputController control={control} type="password" name="password" placeholder="password" error={errors.password} />
+            <Input register={register} type="password" name="password" placeholder="password" error={errors.password} />
 
             <div className={styles.error}>{errors.error && errors.error.message}</div>
 
