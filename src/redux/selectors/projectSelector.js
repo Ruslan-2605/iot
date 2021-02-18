@@ -2,7 +2,7 @@ const getProject = (state) => {
     return state.project
 }
 
-export const getCountPage = (state) => {
+export const getActivePage = (state) => {
     return getProject(state).page
 }
 

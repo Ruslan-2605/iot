@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../styles/Form.module.css";
 
-export const CreateProjectForm = (createProjectThunkCreator) => {
+export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLength }) => {
 
     const schema = yup.object().shape({
         name: yup
@@ -32,7 +32,7 @@ export const CreateProjectForm = (createProjectThunkCreator) => {
     };
 
     const onSubmit = (projectData, setError) => {
-        createProjectThunkCreator(projectData, token, projects.length, setError);
+        createProjectThunkCreator(projectData, token, projectsLength, setError);
     };
 
     return (

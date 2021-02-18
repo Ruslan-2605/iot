@@ -25,7 +25,11 @@ export const DashboardItem = (props) => {
                 <button onClick={() => deleteProjectThunkCreator(project.id, token, username, page)}>Delete</button>
             </div>
             <Modal isModal={isUpdateProject} setModal={setUpdateProject} title="Update Project">
-                <UpdateProjectForm updateProjectThunkCreator={updateProjectThunkCreator} />
+                <UpdateProjectForm
+                    updateProjectThunkCreator={updateProjectThunkCreator}
+                    token={token}
+                    id={project.id}
+                />
             </Modal>
         </div>
     );

@@ -6,7 +6,7 @@ import {
 } from "../../../redux/reducers/projectReducer";
 import { connect } from "react-redux";
 import { getUserName, getUserToken } from "../../../redux/selectors/authSelector";
-import { getCountPage, getProjects } from "../../../redux/selectors/projectSelector";
+import { getActivePage, getProjects } from "../../../redux/selectors/projectSelector";
 import { DashboardItem } from "./DashboardItem";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -59,7 +59,11 @@ export const Dashboard = (props) => {
                 )}
 
                 <Modal isModal={isCreateProject} setModal={setCreateProject} title="Create Project">
-                    <CreateProjectForm createProjectThunkCreator={createProjectThunkCreator} />
+                    <CreateProjectForm
+                        createProjectThunkCreator={createProjectThunkCreator}
+                        token={token}
+                        projectsLength={projects.length}
+                    />
                 </Modal>
 
             </div>
@@ -71,7 +75,7 @@ const mapStateToProps = (state) => {
     return {
         username: getUserName(state),
         token: getUserToken(state),
-        page: getCountPage(state),
+        page: getActivePage(state),
         projects: getProjects(state)
     }
 };
