@@ -15,7 +15,6 @@ import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 import { CreateProjectForm } from "./CreateProjectForm";
 
 export const Dashboard = (props) => {
-
     const { username, token, page, projects,
         deleteProjectThunkCreator, updateProjectThunkCreator,
         createProjectThunkCreator, getProjectPageThunkCreator } = props;

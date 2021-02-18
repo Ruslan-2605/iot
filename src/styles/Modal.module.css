@@ -14,6 +14,7 @@
 }
 
 .modalBody{
+    position: relative;
     display: flex;
     max-width: 420px;
     justify-content: center;
@@ -21,23 +22,23 @@
     flex-direction: column;
     background-color: #fff;
     width: 100%;
-    min-height: 420px;
+    min-height: 440px;
     overflow-y: auto;   
     box-sizing: border-box;
     margin: 0;
     border-radius: 8px;
 }
-.modalTitle{
-    display: flex; 
-    width: calc(100% - 50px);
-    justify-content: space-between;
-}
 .title{
     font-size: 30px;  
+    text-align: center;
     color: #b3294e;
-    font-weight: 700; 
+    font-weight: 700;
+    margin-bottom: 10px; 
  }
-.modalTitle button{
+.btnClose{
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background-color: #fff;
 }
 .content{

@@ -20,6 +20,7 @@ export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLe
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
+        mode: 'onChange',
         defaultValues: {
             "name": "",
             "title": ""
@@ -38,7 +39,7 @@ export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLe
     return (
         <form onSubmit={handleSubmit((projectData) => onSubmit(projectData, setError), onError)}>
 
-            <Input register={register} value="state" type="text" placeholder="Name" name="name" error={errors.name} />
+            <Input register={register} type="text" placeholder="Name" name="name" error={errors.name} />
 
             <Textarea register={register} type="text" placeholder="Title" name="title" error={errors.title} />
 
@@ -46,3 +47,4 @@ export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLe
         </form >
     )
 }
+

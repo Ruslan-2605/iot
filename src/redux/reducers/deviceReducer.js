@@ -82,24 +82,26 @@ const deleteDevice = (id) => {
 
 // ActionCreator
 
+
 // Redux-Thunk
 
 //Get Things Array
 
-
-export const getThigsThunkCreator = (id, token) => { //id of project
+export const getThingsThunkCreator = (id, token) => {
+    debugger
     return async (dispatch) => {
         try {
+            //id of project
             const response = await deviceAPI.getThings(id, token);
             dispatch(setThings(response))
         } catch (error) {
-            // ERROR
+            console.log(error)
         }
     };
 };
 
-//Device CRUD
 
+//Device CRUD
 
 export const getDeviceThunkCreator = (id, token) => {
     return async (dispatch) => {

@@ -9,10 +9,8 @@ export const Modal = (props) => {
     return (
         <div className={isModal ? styles.modalWrapper + " " + styles.open : styles.modalWrapper + " " + styles.close} >
             <div className={styles.modalBody}>
-                <div className={styles.modalTitle}>
-                    <div className={styles.title}>{title}</div>
-                    <button onClick={() => setModal(false)}><CloseIcon /></button>
-                </div>
+                <button className={styles.btnClose} onClick={() => setModal(false)}><CloseIcon /></button>
+                <div className={styles.title}>{title}</div>
                 <div className={styles.content}>
                     {children}
                 </div>

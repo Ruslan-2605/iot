@@ -1,31 +1,47 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { getUserToken } from "../../../redux/selectors/authSelector";
+import { getProjectThunkCreator } from "../../../redux/reducers/projectReducer";
+import styles from "../../../styles/Project.module.css";
+import { getProjectViewed } from "../../../redux/selectors/projectSelector";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
-import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
-import styles from "../../../styles/Project.module.css";
+import { getThingsThunkCreator } from "../../../redux/reducers/deviceReducer";
+import { getThings } from "../../../redux/selectors/deviceSelector";
 
 
 export const Project = (props) => {
 
-    useEffect(() => {
-        console.log(props.match.params.projectId)
-    }, [props.match.params.projectId])
+    const { token, getProjectThunkCreator, getThingsThunkCreator, project, things, match } = props;
+
+    let id = match.params.projectId;
+
+    useEffect(async () => {
+        await getProjectThunkCreator(id, token);
+        await getThingsThunkCreator(id, token);
+    }, [id])
 
     return (
         <div>
-            Project
+            <div>{project.name}</div>
+            <div>{project.title}</div>
+            <div>{project.id}</div>
         </div>
     );
 };
 
 const mapStateToProps = (state) => {
     return {
-
+        token: getUserToken(state),
+        project: getProjectViewed(state),
+        things: getThings(state),
     }
 };
 export const ProjectContainer = compose(
-    connect(mapStateToProps, {}),
-    withRouter,
-    withAuthRedirect
-)(Project);
+    connect(mapStateToProps, {
+        getProjectThunkCreator,
+        getThingsThunkCreator
+    }),
+    withRouter
+)(Project)
+

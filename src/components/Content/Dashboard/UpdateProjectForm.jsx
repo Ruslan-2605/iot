@@ -38,7 +38,7 @@ export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id }) => {
     return (
         <form onSubmit={handleSubmit((projectData) => onSubmit(projectData, setError), onError)}>
 
-            <Input register={register} value="state" type="text" placeholder="Name" name="name" error={errors.name} />
+            <Input register={register} type="text" placeholder="Name" name="name" error={errors.name} />
 
             <Textarea register={register} type="text" placeholder="Title" name="title" error={errors.title} />
 

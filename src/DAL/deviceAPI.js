@@ -8,7 +8,7 @@ export const deviceAPI = {
 
     getThings(id, token) {
         return instance
-            .get(`thing/${id}`, { 'headers': { 'Authorization': token } })
+            .get(`project/thing/${id}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 

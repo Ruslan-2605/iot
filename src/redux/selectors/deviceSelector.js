@@ -1,13 +1,13 @@
-const getDevices = (state) => {
+const getDevice = (state) => {
     return state.device
 }
 
 export const getThings = (state) => {
-    return getDevices(state).things
+    return getDevice(state).things
 }
 
 export const getDevices = (state) => {
-    return getProject(state).devices
+    return getDevice(state).devices
 }
 // export const getDifficultDate = createSelector(select1, select2, (state1, state2) => {
 //    return difficult data

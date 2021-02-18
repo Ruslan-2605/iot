@@ -19,7 +19,6 @@ const initialState = {
 };
 
 export const projectReducer = (state = initialState, action) => {
-    debugger
     switch (action.type) {
 
         case SET_PROJECTS:
@@ -68,7 +67,10 @@ export const projectReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+
 // Action
+
 const setProjects = (projects) => {
     return {
         type: "SET-PROJECTS",
@@ -110,12 +112,15 @@ const setCountPage = (count) => {
     }
 }
 
+
 // ActionCreator
+
 export const setIconActionCreator = (iconSelected) => {
     return async (dispatch) => {
         dispatch(setIcon(iconSelected));
     };
 }
+
 
 // Redux-Thunk
 
@@ -163,6 +168,7 @@ export const deleteProjectThunkCreator = (id, token, username, page) => {
 
 
 //Get Project
+
 export const getProjectThunkCreator = (id, token) => {
     return async (dispatch) => {
         try {
@@ -174,7 +180,9 @@ export const getProjectThunkCreator = (id, token) => {
     };
 };
 
+
 //Get count of Page
+
 export const getCountPageThunkCreator = (username, token) => {
     return async (dispatch) => {
         try {
