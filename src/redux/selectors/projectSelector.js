@@ -5,7 +5,6 @@ const getProject = (state) => {
 export const getActivePage = (state) => {
     return getProject(state).page
 }
-
 export const getProjects = (state) => {
     return getProject(state).projects
 }
@@ -18,6 +17,7 @@ export const getCountPage = (state) => {
 export const getProjectViewed = (state) => {
     return getProject(state).projectViewed
 }
+
 
 // export const getDifficultDate = createSelector(select1, select2, (state1, state2) => {
 //    return difficult data

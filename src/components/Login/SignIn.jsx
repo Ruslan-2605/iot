@@ -24,6 +24,8 @@ export const SignInForm = ({ signInThunkCreator }) => {
     });
 
     const { handleSubmit, register, errors, setError } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange",
         defaultValues: {
             "password": "",
             "username": "",
@@ -31,7 +33,7 @@ export const SignInForm = ({ signInThunkCreator }) => {
         resolver: yupResolver(schema),
     })
 
-    const onSubmit = (authData, setError) => {
+    const onSubmit = (authData) => {
         signInThunkCreator(authData, setError);
     };
 
@@ -40,7 +42,7 @@ export const SignInForm = ({ signInThunkCreator }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit((authData) => onSubmit(authData, setError), onError)} className={styles.form}>
+        <form onSubmit={handleSubmit((authData) => onSubmit(authData), onError)} className={styles.form}>
 
             <Input register={register} type="text" name="username" placeholder="Username" error={errors.username} />
 

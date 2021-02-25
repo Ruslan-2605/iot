@@ -1,47 +1,47 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { getUserToken } from "../../../redux/selectors/authSelector";
-import { getProjectThunkCreator } from "../../../redux/reducers/projectReducer";
+import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
-import { getProjectViewed } from "../../../redux/selectors/projectSelector";
 import { withRouter } from "react-router-dom";
-import { compose } from "redux";
-import { getThingsThunkCreator } from "../../../redux/reducers/deviceReducer";
-import { getThings } from "../../../redux/selectors/deviceSelector";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getPage, getThings } from "../../../redux/selectors/deviceSelector";
+import { getUserToken } from "../../../redux/selectors/authSelector";
+import { getThingsPageThunkCreator } from "../../../redux/reducers/deviceReducer";
+import { Modal } from "../../utils/Modal"
+import { CreateDeviceForm } from "./Forms/CreateDeviceForm"
+import { Device } from "./Device";
+import { getProjectThunkCreator } from "../../../redux/reducers/projectReducer";
+import { getProjectViewed } from "../../../redux/selectors/projectSelector";
 
 export const Project = (props) => {
 
-    const { token, getProjectThunkCreator, getThingsThunkCreator, project, things, match } = props;
+    let id = props.match.params.projectId;
 
-    let id = match.params.projectId;
+    const dispatch = useDispatch()
+    const page = useSelector(getPage)
+    const token = useSelector(getUserToken)
+    const things = useSelector(getThings)
+    const project = useSelector(getProjectViewed)
 
-    useEffect(async () => {
-        await getProjectThunkCreator(id, token);
-        await getThingsThunkCreator(id, token);
-    }, [id])
+    useEffect(() => {
+        dispatch(getThingsPageThunkCreator(id, page, token))
+        dispatch(getProjectThunkCreator(id, token))
+    }, [id]);
+
+    // Состояние модального окна
+    const [isCreateDevice, setCreateDevice] = useState(false);
 
     return (
         <div>
             <div>{project.name}</div>
-            <div>{project.title}</div>
-            <div>{project.id}</div>
+            {things.map((thing) => {
+                return <Device thing={thing} />
+            })}
+            <button onClick={() => setCreateDevice(true)}>Create</button>
+            <Modal isModal={isCreateDevice} setModal={setCreateDevice} title="Create Device">
+                <CreateDeviceForm thingsLength={things.length} />
+            </Modal>
         </div>
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        token: getUserToken(state),
-        project: getProjectViewed(state),
-        things: getThings(state),
-    }
-};
-export const ProjectContainer = compose(
-    connect(mapStateToProps, {
-        getProjectThunkCreator,
-        getThingsThunkCreator
-    }),
-    withRouter
-)(Project)
+export const ProjectContainer = withRouter(Project)
 

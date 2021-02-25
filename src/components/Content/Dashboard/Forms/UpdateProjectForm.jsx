@@ -1,12 +1,12 @@
 import React from "react";
-import { Input, Textarea } from "../../utils/FormСontrollers";
+import { Input, Textarea } from "../../../utils/FormСontrollers";
 import { useForm } from "react-hook-form";
-import { setErrorForm } from "../../utils/SetErrorForm";
+import { setErrorForm } from "../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from "../../../styles/Form.module.css";
+import styles from "../../../../styles/Form.module.css";
 
-export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id }) => {
+export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id, defaultValues }) => {
 
     const schema = yup.object().shape({
         name: yup
@@ -20,9 +20,10 @@ export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id }) => {
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange",
         defaultValues: {
-            "name": "",
-            "title": ""
+            ...defaultValues
         },
         resolver: yupResolver(schema),
     })
@@ -31,12 +32,12 @@ export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id }) => {
         setErrorForm(e, setError);
     };
 
-    const onSubmit = (projectData, setError) => {
+    const onSubmit = (projectData) => {
         updateProjectThunkCreator(projectData, token, id, setError);
     };
 
     return (
-        <form onSubmit={handleSubmit((projectData) => onSubmit(projectData, setError), onError)}>
+        <form onSubmit={handleSubmit((projectData) => onSubmit(projectData), onError)}>
 
             <Input register={register} type="text" placeholder="Name" name="name" error={errors.name} />
 

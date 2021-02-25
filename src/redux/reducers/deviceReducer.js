@@ -1,15 +1,17 @@
+import { deviceFormHelper } from "../../components/utils/DeviceFormHelper";
+import { setErrorInThunk } from "../../components/utils/setErrorInThunk";
 import { updateObjectArray } from "../../components/utils/updateObjectArray";
 import { deviceAPI } from "../../DAL/deviceAPI";
 
 const SET_THINGS = "SET-THINGS";
-const SET_DEVICE = "SET-DEVICE";
+const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
-const DELETE_DEVICE = "DELETE-DEVICE";
+const SET_PAGE = "SET-PAGE";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
     things: [],
-    devices: [],
+    page: 1,
 };
 
 export const deviceReducer = (state = initialState, action) => {
@@ -21,27 +23,38 @@ export const deviceReducer = (state = initialState, action) => {
                 things: action.data,
             };
 
-        case SET_DEVICE:
+        case CREATE_DEVICE:
             return {
                 ...state,
-                devices: [
-                    ...state.devices,
-                    action.data,
+                things: [
+                    ...state.things,
+                    {
+                        "type": "device",
+                        "entity": {
+                            ...action.data
+                        }
+                    },
                 ],
             };
 
         case UPDATE_DEVICE:
             return {
                 ...state,
-                devices: updateObjectArray(state.devices, action.data.id, "id", action.data)
+                things: state.things.map((thing) => {
+                    switch (thing.type === "device") {
+                        case thing.entity.id === action.data.id:
+                            return { ...thing, ...{ "entity": { ...action.data } } }
+                        default:
+                            return thing;
+                    }
+                })
             };
 
-        case DELETE_DEVICE:
+        case SET_PAGE:
             return {
                 ...state,
-                devices: updateObjectArray(state.devices, action.data, "id", null)//требует проверки
+                page: action.data,
             };
-
 
         case LOGOUT:
             return initialState;
@@ -59,10 +72,10 @@ const setThings = (things) => {
     }
 }
 
-const setDevice = (device) => {
+const createDevice = (response) => {
     return {
-        type: "SET-DEVICE",
-        data: device
+        type: "CREATE-DEVICE",
+        data: response
     }
 }
 
@@ -73,29 +86,31 @@ const updateDevice = (device) => {
     }
 }
 
-const deleteDevice = (id) => {
+const setPage = (page) => {
     return {
-        type: "DELETE-DEVICE",
-        data: id
+        type: "SET-PAGE",
+        data: page
     }
 }
 
 // ActionCreator
-
-
+export const setPageActionCreator = (page) => {
+    return async (dispatch) => {
+        dispatch(setPage(page));
+    };
+}
 // Redux-Thunk
 
 //Get Things Array
 
-export const getThingsThunkCreator = (id, token) => {
-    debugger
+export const getThingsPageThunkCreator = (id, page, token) => {
     return async (dispatch) => {
         try {
             //id of project
-            const response = await deviceAPI.getThings(id, token);
+            const response = await deviceAPI.getThings(id, page, token);
             dispatch(setThings(response))
         } catch (error) {
-            console.log(error)
+            // ERROR
         }
     };
 };
@@ -103,44 +118,38 @@ export const getThingsThunkCreator = (id, token) => {
 
 //Device CRUD
 
-export const getDeviceThunkCreator = (id, token) => {
-    return async (dispatch) => {
-        try {
-            const response = await deviceAPI.getDevice(id, token);
-            dispatch(setDevice(response))
-        } catch (error) {
-            // ERROR
-        }
-    };
-};
-
-export const createDeviceThunkCreator = (deviceForm, token) => {
+export const createDeviceThunkCreator = (deviceForm, project, token, thingsLength, setError) => {
+    deviceForm = deviceFormHelper(deviceForm, project)
     return async (dispatch) => {
         try {
             const response = await deviceAPI.createDevice(deviceForm, token);
-            dispatch(setDevice(response))
+            if (thingsLength < 10) {
+                //10 - максимальное количество проектов на странице
+                dispatch(createDevice(response))
+            }
         } catch (error) {
-            // ERROR
+            setErrorInThunk(error, setError);
         }
     };
 };
 
-export const updateDeviceThunkCreator = (deviceForm, token, id) => {
+export const updateDeviceThunkCreator = (deviceForm, token, project, id, setError) => {
+    deviceForm = deviceFormHelper(deviceForm, project)
     return async (dispatch) => {
         try {
             const response = await deviceAPI.updateDevice(deviceForm, token, id);
             dispatch(updateDevice(response))
         } catch (error) {
-            // ERROR
+            setErrorInThunk(error, setError);
         }
     };
 };
 
-export const deleteDeviceThunkCreator = (id, token) => {
+export const deleteDeviceThunkCreator = (id, page, project, token) => {
     return async (dispatch) => {
         try {
             const response = await deviceAPI.deleteDevice(id, token);
-            dispatch(deleteDevice(id))
+            dispatch(getThingsPageThunkCreator(project, page, token))
         } catch (error) {
             // ERROR
         }

@@ -6,15 +6,9 @@ let instance = axios.create({
 
 export const deviceAPI = {
 
-    getThings(id, token) {
+    getThings(id, page, token) {
         return instance
-            .get(`project/thing/${id}`, { 'headers': { 'Authorization': token } })
-            .then((response) => response.data);
-    },
-
-    getDevice(id, token) {
-        return instance
-            .get(`device/${id}`, { 'headers': { 'Authorization': token } })
+            .get(`/project/thing/page/${id}?count=${page}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 

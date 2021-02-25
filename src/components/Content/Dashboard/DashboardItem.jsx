@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "../../../styles/Dashboard.module.css";
 import { Modal } from "../../utils/Modal"
-import { UpdateProjectForm } from "./UpdateProjectForm";
+import { UpdateProjectForm } from "./Forms/UpdateProjectForm";
 
-export const DashboardItem = (props) => {
+export const DashboardItem = React.memo((props) => {
 
     const { project, token, page, username, deleteProjectThunkCreator, updateProjectThunkCreator } = props;
 
@@ -18,7 +18,7 @@ export const DashboardItem = (props) => {
                 {project.title.length > 15 ? project.title.slice(0, 15) + "..." : project.title}
             </div>
             <div className={styles.btn}>
-                <NavLink to={"/project/" + project.id}>View</NavLink>
+                <NavLink to={"/dashboard/project/" + project.id}>View</NavLink>
 
                 <button onClick={() => setUpdateProject(true)}>Update</button>
 
@@ -29,10 +29,14 @@ export const DashboardItem = (props) => {
                     updateProjectThunkCreator={updateProjectThunkCreator}
                     token={token}
                     id={project.id}
+                    defaultValues={{
+                        "name": project.name,
+                        "title": project.title
+                    }}
                 />
             </Modal>
         </div>
     );
-};
+});
 
 

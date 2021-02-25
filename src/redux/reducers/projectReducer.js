@@ -8,6 +8,7 @@ const UPDATE_PROJECT = "UPDATE-PROJECT";
 const SET_ICON = "SET-ICON";
 const SET_VIEWED_PROJECT = "SET-VIEWED-PROJECT";
 const SET_COUNT_PAGE = "SET-COUNT-PAGE";
+const SET_PAGE = "SET-PAGE";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -58,6 +59,12 @@ export const projectReducer = (state = initialState, action) => {
             return {
                 ...state,
                 countPage: action.data,
+            };
+
+        case SET_PAGE:
+            return {
+                ...state,
+                page: action.data,
             };
 
         case LOGOUT:
@@ -111,6 +118,12 @@ const setCountPage = (count) => {
         data: count
     }
 }
+const setPage = (page) => {
+    return {
+        type: "SET-PAGE",
+        data: page
+    }
+}
 
 
 // ActionCreator
@@ -118,6 +131,12 @@ const setCountPage = (count) => {
 export const setIconActionCreator = (iconSelected) => {
     return async (dispatch) => {
         dispatch(setIcon(iconSelected));
+    };
+}
+
+export const setPageActionCreator = (page) => {
+    return async (dispatch) => {
+        dispatch(setPage(page));
     };
 }
 
@@ -134,7 +153,6 @@ export const getProjectPageThunkCreator = (username, token, page) => {
 };
 
 export const createProjectThunkCreator = (projectForm, token, projectLength, setError) => {
-    debugger
     return async (dispatch) => {
         try {
             const response = await projectAPI.createProject(projectForm, token);

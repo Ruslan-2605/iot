@@ -28,6 +28,8 @@ export const SignUpForm = ({ signUpThunkCreator }) => {
     });
 
     const { register, handleSubmit, errors, setError } = useForm({
+        mode: "onChange",
+        reValidateMode: "onChange",
         defaultValues: {
             "email": "",
             "password": "",

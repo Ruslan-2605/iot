@@ -29,8 +29,8 @@ export const App = (props) => {
       <HeaderContainer />
       <NavbarContainer />
       <div className="wrapper-content">
-        <Route path="/dashboard" render={() => <DashboardContainer />} />
-        <Route path="/project/:projectId?" render={() => <ProjectContainer />} />
+        <Route exact path="/dashboard" render={() => <DashboardContainer />} />
+        <Route path="/dashboard/project/:projectId?" render={() => <ProjectContainer />} />
       </div>
     </div>
   );
