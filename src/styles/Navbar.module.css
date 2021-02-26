@@ -1,6 +1,7 @@
 @media (min-width: 480px){
     .navbar{
         height: 100vh;
+        width: 72px;
     }
     .icons{
         flex-direction: column;  
@@ -23,7 +24,8 @@
 }
 @media (max-width: 479px){
     .navbar{
-        width: 100%;
+        width: 100vw;
+        height: 60px;
     }
     .icons{
         display: flex;   
@@ -52,6 +54,9 @@
 .navbar{
     grid-area: n;
     background-color: #343a40;
+    position: fixed; 
+    z-index: 3;
+    top: 60px; 
 }
 .icons{
     display: flex;

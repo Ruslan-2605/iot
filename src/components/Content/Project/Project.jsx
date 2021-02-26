@@ -11,7 +11,7 @@ import { Device } from "./Device";
 import { getProjectThunkCreator } from "../../../redux/reducers/projectReducer";
 import { getProjectViewed } from "../../../redux/selectors/projectSelector";
 
-export const Project = (props) => {
+export const Project = withRouter((props) => {
 
     let id = props.match.params.projectId;
 
@@ -30,18 +30,21 @@ export const Project = (props) => {
     const [isCreateDevice, setCreateDevice] = useState(false);
 
     return (
-        <div>
-            <div>{project.name}</div>
-            {things.map((thing) => {
+        <div className={styles.project}>
+            <div className={styles.projectInfo}>
+                <div className={styles.name}>{project.name}</div>
+                <div className={styles.title}>{project.title}</div>
+            </div><hr />
+            <div className={styles.things}>{things.map((thing) => {
                 return <Device thing={thing} />
-            })}
+            })}</div>
             <button onClick={() => setCreateDevice(true)}>Create</button>
             <Modal isModal={isCreateDevice} setModal={setCreateDevice} title="Create Device">
                 <CreateDeviceForm thingsLength={things.length} />
             </Modal>
         </div>
     );
-};
+});
 
-export const ProjectContainer = withRouter(Project)
+
 

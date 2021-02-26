@@ -6,7 +6,7 @@ import { deviceAPI } from "../../DAL/deviceAPI";
 const SET_THINGS = "SET-THINGS";
 const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
-const SET_PAGE = "SET-PAGE";
+const SET_PAGE_DEVICE = "SET-PAGE-DEVICE";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -50,7 +50,7 @@ export const deviceReducer = (state = initialState, action) => {
                 })
             };
 
-        case SET_PAGE:
+        case SET_PAGE_DEVICE:
             return {
                 ...state,
                 page: action.data,
@@ -88,7 +88,7 @@ const updateDevice = (device) => {
 
 const setPage = (page) => {
     return {
-        type: "SET-PAGE",
+        type: "SET-PAGE-DEVICE",
         data: page
     }
 }
@@ -123,7 +123,7 @@ export const createDeviceThunkCreator = (deviceForm, project, token, thingsLengt
     return async (dispatch) => {
         try {
             const response = await deviceAPI.createDevice(deviceForm, token);
-            if (thingsLength < 10) {
+            if (thingsLength < 25) {
                 //10 - максимальное количество проектов на странице
                 dispatch(createDevice(response))
             }

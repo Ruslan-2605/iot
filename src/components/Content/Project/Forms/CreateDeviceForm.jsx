@@ -21,9 +21,13 @@ export const CreateDeviceForm = ({ thingsLength }) => {
     const schema = yup.object().shape({
         name: yup
             .string()
-            .required("Name is a required field"),
+            .required("Name is a required field")
+            .min(2, "Name size is less than 2")
+            .max(16, "Name max size is 16"),
         state: yup
-            .string(),
+            .string()
+            .min(2, "Name size is less than 2")
+            .max(16, "State max size is 16"),
         states: yup
             .string()
     });

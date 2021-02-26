@@ -8,7 +8,7 @@ const UPDATE_PROJECT = "UPDATE-PROJECT";
 const SET_ICON = "SET-ICON";
 const SET_VIEWED_PROJECT = "SET-VIEWED-PROJECT";
 const SET_COUNT_PAGE = "SET-COUNT-PAGE";
-const SET_PAGE = "SET-PAGE";
+const SET_PAGE_PROJECT = "SET-PAGE-PROJECT";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -61,7 +61,7 @@ export const projectReducer = (state = initialState, action) => {
                 countPage: action.data,
             };
 
-        case SET_PAGE:
+        case SET_PAGE_PROJECT:
             return {
                 ...state,
                 page: action.data,
@@ -120,7 +120,7 @@ const setCountPage = (count) => {
 }
 const setPage = (page) => {
     return {
-        type: "SET-PAGE",
+        type: "SET-PAGE-PROJECT",
         data: page
     }
 }

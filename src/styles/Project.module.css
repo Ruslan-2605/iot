@@ -1,0 +1,32 @@
+.project{
+    margin: 20px 0 0 20px;
+}
+
+.things{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: 20px;
+}
+
+.projectInfo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.name{
+    font-weight: 700;
+    font-size: 20px;
+    color: #b3294e;
+}
+
+.title{
+    font-size: 14px;
+    color: #343a40;
+    margin: 5px 0 5px 0;
+}
+.project hr{
+    border: 1px solid rgba(0, 0, 0, 0.1)
+}

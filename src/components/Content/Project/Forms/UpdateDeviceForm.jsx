@@ -10,7 +10,7 @@ import { getUserToken } from "../../../../redux/selectors/authSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { updateDeviceThunkCreator } from "../../../../redux/reducers/deviceReducer";
 
-export const UpdateDeviceForm = ({ id }) => {
+export const UpdateDeviceForm = ({ id, defaultValues }) => {
 
     const dispatch = useDispatch();
 
@@ -32,9 +32,7 @@ export const UpdateDeviceForm = ({ id }) => {
         mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
-            "name": "",
-            "state": "",
-            "states": ""
+            ...defaultValues
         },
         resolver: yupResolver(schema),
     })

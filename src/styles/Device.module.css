@@ -1,0 +1,40 @@
+.device{ 
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 200px;
+    height: 130px;
+    background-color: #fff;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.deviceInfo{
+    margin: 15px;
+}
+
+.deviceInfo hr{
+    border: 1px solid rgba(0, 0, 0, 0.1)
+}
+
+.name{
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: capitalize;  
+    padding: 2px;
+    z-index: 2;
+}
+.lastSeen{
+    font-size: 10px;
+    position: absolute;    
+    bottom: 10px;
+    right: 10px;  
+}
+.btnClose{
+    position: absolute;
+    z-index: 1;
+    top: 5px;
+    right: 5px;
+    background-color: #fff;
+}

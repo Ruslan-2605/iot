@@ -63,8 +63,10 @@ export const Pagination = (props) => {
     return (
         <div className={styles.paginator}>
 
-            {portionNumber > 1 &&
+            {portionNumber > 1 ?
                 <button onClick={() => setPortionNumber(portionNumber - 1)}><ArrowBackIcon /></button>
+                :
+                <button disabled><ArrowBackIcon /></button>
             }
 
             {pages
@@ -76,8 +78,10 @@ export const Pagination = (props) => {
                     );
                 })}
 
-            {portionNumber < portionCount &&
+            {portionNumber < portionCount ?
                 <button onClick={() => setPortionNumber(portionNumber + 1)}><ArrowForwardIcon /></button>
+                :
+                <button disabled><ArrowForwardIcon /></button>
             }
 
         </div>
