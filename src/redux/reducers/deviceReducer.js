@@ -7,6 +7,7 @@ const SET_THINGS = "SET-THINGS";
 const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
 const SET_PAGE_DEVICE = "SET-PAGE-DEVICE";
+const SET_STATE = "SET-STATE";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -56,6 +57,25 @@ export const deviceReducer = (state = initialState, action) => {
                 page: action.data,
             };
 
+        // case SET_STATE:
+        //     return {
+        //         ...state,
+        //         page: action.data,
+        //     };
+
+        case SET_STATE:
+            return {
+                ...state,
+                things: state.things.map((thing) => {
+                    switch (thing.type === "device") {
+                        case thing.entity.token === action.data.token:
+                            return { ...thing, ...thing.entity, ...{ "state": { ...action.data.state } } }
+                        default:
+                            return thing;
+                    }
+                })
+            };
+
         case LOGOUT:
             return initialState;
 
@@ -92,6 +112,14 @@ const setPage = (page) => {
         data: page
     }
 }
+
+const setState = (state) => {
+    return {
+        type: "SET-STATE",
+        data: state
+    }
+}
+
 
 // ActionCreator
 export const setPageActionCreator = (page) => {
@@ -150,6 +178,35 @@ export const deleteDeviceThunkCreator = (id, page, project, token) => {
         try {
             const response = await deviceAPI.deleteDevice(id, token);
             dispatch(getThingsPageThunkCreator(project, page, token))
+        } catch (error) {
+            // ERROR
+        }
+    };
+};
+
+// export const getStateDeviceThunkCreator = (state, token) => {
+//    return async (dispatch) => {
+//         try {
+//             // token of device
+//             const response = await deviceAPI.getState(state, token);
+//             if (response.body) {
+//                 dispatch(getState(response.body, token))
+//             } else {
+//                 console.log(response)
+//             }
+//         } catch (error) {
+//             //    ERROR
+//         }
+//     };
+// };
+
+export const setStateDeviceThunkCreator = (state, token) => {
+    debugger
+    return async (dispatch) => {
+        try {
+            // token of device
+            const response = await deviceAPI.setState(state, token);
+            dispatch(setState(response.body, token))
         } catch (error) {
             // ERROR
         }

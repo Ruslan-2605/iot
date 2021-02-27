@@ -33,4 +33,16 @@ export const deviceAPI = {
             })
     },
 
+    getState(state, token) {
+        return instance
+            .get(`/deviceState/${token}?state=${state}`)
+            .then((response) => response.data);
+    },
+
+    setState(state, token) {
+        return instance
+            .post(`/deviceState/${token}?state=${state}`)
+            .then((response) => response.data);
+    },
+
 };

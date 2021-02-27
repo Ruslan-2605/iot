@@ -5,8 +5,17 @@ import { setErrorForm } from "../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserToken } from "../../../../redux/selectors/authSelector";
+import { getProjectViewed } from "../../../../redux/selectors/projectSelector";
+import { updateProjectThunkCreator } from "../../../../redux/reducers/projectReducer";
 
-export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id, defaultValues }) => {
+export const UpdateProjectForm = (props) => {
+
+    const dispatch = useDispatch()
+    const token = useSelector(getUserToken)
+    const project = useSelector(getProjectViewed)
+    const id = project.id
 
     const schema = yup.object().shape({
         name: yup
@@ -23,7 +32,8 @@ export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id, defaul
         mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
-            ...defaultValues
+            "name": project.name,
+            "title": project.title
         },
         resolver: yupResolver(schema),
     })
@@ -33,7 +43,7 @@ export const UpdateProjectForm = ({ updateProjectThunkCreator, token, id, defaul
     };
 
     const onSubmit = (projectData) => {
-        updateProjectThunkCreator(projectData, token, id, setError);
+        dispatch(updateProjectThunkCreator(projectData, token, id, setError));
     };
 
     return (

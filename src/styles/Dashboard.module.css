@@ -85,7 +85,7 @@
 }
 .project{
     display:flex;
-    position: relative;
+    /* position: relative; */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -105,7 +105,6 @@
     font-size: 22px;
     font-weight: 600;
     margin-top: 3px;
-    z-index: 2;
 }
 .title{
     color: #343a40;
@@ -113,50 +112,17 @@
     font-weight: 400;
     padding: 2px 5px 0 5px;
 }
-.btn{
-    display: flex;
-    margin: 10px 0 5px 0;
-}
-.btn button {
-    padding: 5px;
-    border: 1px solid #343a40;
-    border-radius: 5px;
-    margin: 0 5px 0 0;
-    box-shadow: 0px 0.5px 0.5px #343a40;
-}
-.btn button:last-child{
-    margin: 0;
-}
-.btn button:hover{
-    transition-duration: 0.5s;
-    background-color: #fff;
-    box-shadow: 0.5px 1px 1px #343a40;
-}
-.btn a{
+.project a{
     text-decoration: none;
-    color: black;
-    background-color: #f5f5f5;
-    padding: 5px;
-    border: 1px solid #343a40;
-    border-radius: 5px;
-    margin: 0 5px 0 0;
-    box-shadow: 0px 0.5px 0.5px #343a40;
+    text-align: center;
 }
-.btn a:last-child{
-    margin: 0;
-}
-.btn a:hover{
-    transition-duration: 0.5s;
-    background-color: #fff;
-    box-shadow: 0.5px 1px 1px #343a40;
-}
-.btnClose{
+/* .btnClose{
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 1;
     background-color: #fff;
-}
+} */
 .project.creator{
     background-color: rgba(0,0,0, 0.03);
 }

@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import { setErrorInThunk } from "../../components/utils/setErrorInThunk";
 import { updateObjectArray } from "../../components/utils/updateObjectArray";
 import { projectAPI } from "../../DAL/projectAPI";
@@ -129,13 +130,13 @@ const setPage = (page) => {
 // ActionCreator
 
 export const setIconActionCreator = (iconSelected) => {
-    return async (dispatch) => {
+    return (dispatch) => {
         dispatch(setIcon(iconSelected));
     };
 }
 
 export const setPageActionCreator = (page) => {
-    return async (dispatch) => {
+    return (dispatch) => {
         dispatch(setPage(page));
     };
 }
@@ -171,6 +172,7 @@ export const updateProjectThunkCreator = (projectForm, token, id, setError) => {
         try {
             const response = await projectAPI.updateProject(projectForm, token, id);
             dispatch(updateProject(response))
+            dispatch(setViewedProject(response))
         } catch (error) {
             setErrorInThunk(error, setError);
         }
@@ -180,7 +182,8 @@ export const updateProjectThunkCreator = (projectForm, token, id, setError) => {
 export const deleteProjectThunkCreator = (id, token, username, page) => {
     return async (dispatch) => {
         const response = await projectAPI.deleteProject(id, token);
-        dispatch(getProjectPageThunkCreator(username, token, page))
+        //Redirect to dashboard
+        //dispatch(getProjectPageThunkCreator(username, token, page))
     };
 };
 

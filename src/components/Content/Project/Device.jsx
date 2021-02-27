@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Device.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDeviceThunkCreator } from "../../../redux/reducers/deviceReducer";
+import { deleteDeviceThunkCreator, setStateDeviceThunkCreator } from "../../../redux/reducers/deviceReducer";
 import { getUserToken } from "../../../redux/selectors/authSelector";
 import { getProjectViewed, getActivePage } from "../../../redux/selectors/projectSelector";
 import { Modal } from "../../utils/Modal"
@@ -25,6 +25,21 @@ export const Device = React.memo(({ thing }) => {
     // const kaz = Date.now()
     // const uf = new Date().getTimezoneOffset() * 60
     // const fff = kaz + uf
+    const [editMode, setEditMode] = useState(false);
+    const [state, setState] = useState(thing.entity.state)
+
+    useEffect(() => {
+        setState(thing.entity.state)
+    }, [thing.entity.state])
+
+    const deActivateEdit = () => {
+        setEditMode(false)
+        dispatch(setStateDeviceThunkCreator(state, token))
+    };
+
+    const onStateChange = (e) => {
+        setState(e.currentTarget.value);
+    };
 
     return (
         <div className={styles.device}>
@@ -40,7 +55,21 @@ export const Device = React.memo(({ thing }) => {
 
 
                 <div className={styles.state}>
-                    {thing.entity.state}
+                    {!editMode && (
+                        <div>
+                            <span onDoubleClick={() => setEditMode(true)}>{thing.entity.state}</span>
+                        </div>
+                    )}
+                    {editMode && (
+                        <div>
+                            <input
+                                onChange={onStateChange}
+                                autoFocus={true}
+                                onBlur={deActivateEdit}
+                                value={state}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div className={styles.lastSeen}>
                     2 minutes ago

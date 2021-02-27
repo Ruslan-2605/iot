@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../../styles/Navbar.module.css";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import '../../index.css';
 import { connect } from "react-redux";
 import { getIsAuth } from "../../redux/selectors/authSelector";
@@ -11,7 +11,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InfoSharpIcon from '@material-ui/icons/InfoSharp';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 import { getIconSelected } from "../../redux/selectors/projectSelector";
-import * as queryString from "query-string";
 
 export const NavbarComponent = ({ isAuth, iconSelected, logout, setIconActionCreator }) => {
 
