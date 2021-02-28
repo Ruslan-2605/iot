@@ -4,9 +4,9 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActivePage, getCountPage } from "../../../redux/selectors/projectSelector";
+import { getActivePage, getCountPage } from "../../../redux/selectors/projectsSelector";
 import { getUserToken, getUserName } from "../../../redux/selectors/authSelector";
-import { getCountPageThunkCreator, setPageActionCreator } from "../../../redux/reducers/projectReducer";
+import { getCountPageThunkCreator, setPageActionCreator } from "../../../redux/reducers/projectsReducer";
 import * as queryString from "query-string";
 
 export const Pagination = (props) => {

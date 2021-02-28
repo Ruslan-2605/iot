@@ -7,8 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { getProjectViewed } from "../../../../redux/selectors/projectSelector";
-import { updateProjectThunkCreator } from "../../../../redux/reducers/projectReducer";
+import { getProjectViewed } from "../../../../redux/selectors/projectsSelector";
+import { updateProjectThunkCreator } from "../../../../redux/reducers/projectsReducer";
 
 export const UpdateProjectForm = (props) => {
 

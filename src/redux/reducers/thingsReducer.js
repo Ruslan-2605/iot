@@ -1,6 +1,5 @@
 import { deviceFormHelper } from "../../components/utils/DeviceFormHelper";
 import { setErrorInThunk } from "../../components/utils/setErrorInThunk";
-import { updateObjectArray } from "../../components/utils/updateObjectArray";
 import { deviceAPI } from "../../DAL/deviceAPI";
 
 const SET_THINGS = "SET-THINGS";
@@ -8,6 +7,7 @@ const CREATE_DEVICE = "CREATE-DEVICE";
 const UPDATE_DEVICE = "UPDATE-DEVICE";
 const SET_PAGE_DEVICE = "SET-PAGE-DEVICE";
 const SET_STATE = "SET-STATE";
+const SET_INITIAL_STATE = "SET-INITIAL-STATE";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
     page: 1,
 };
 
-export const deviceReducer = (state = initialState, action) => {
+export const thingsReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_THINGS:
@@ -57,24 +57,22 @@ export const deviceReducer = (state = initialState, action) => {
                 page: action.data,
             };
 
-        // case SET_STATE:
-        //     return {
-        //         ...state,
-        //         page: action.data,
-        //     };
-
         case SET_STATE:
             return {
                 ...state,
                 things: state.things.map((thing) => {
                     switch (thing.type === "device") {
-                        case thing.entity.token === action.data.token:
-                            return { ...thing, ...thing.entity, ...{ "state": { ...action.data.state } } }
+                        case thing.entity.token === action.token:
+                            return { ...thing, ...{ "entity": { ...thing.entity, "state": action.state } } }
                         default:
                             return thing;
                     }
                 })
             };
+
+        case SET_INITIAL_STATE:
+            return initialState;
+
 
         case LOGOUT:
             return initialState;
@@ -113,18 +111,30 @@ const setPage = (page) => {
     }
 }
 
-const setState = (state) => {
+const setState = (state, token) => {
     return {
         type: "SET-STATE",
-        data: state
+        state: state,
+        token: token
     }
 }
 
+const setInitialState = () => {
+    return {
+        type: "SET-INITIAL-STATE",
+    }
+}
 
 // ActionCreator
 export const setPageActionCreator = (page) => {
     return async (dispatch) => {
         dispatch(setPage(page));
+    };
+}
+
+export const setInitialStateActionCreator = () => {
+    return async (dispatch) => {
+        dispatch(setInitialState());
     };
 }
 // Redux-Thunk
@@ -184,31 +194,14 @@ export const deleteDeviceThunkCreator = (id, page, project, token) => {
     };
 };
 
-// export const getStateDeviceThunkCreator = (state, token) => {
-//    return async (dispatch) => {
-//         try {
-//             // token of device
-//             const response = await deviceAPI.getState(state, token);
-//             if (response.body) {
-//                 dispatch(getState(response.body, token))
-//             } else {
-//                 console.log(response)
-//             }
-//         } catch (error) {
-//             //    ERROR
-//         }
-//     };
-// };
-
 export const setStateDeviceThunkCreator = (state, token) => {
-    debugger
     return async (dispatch) => {
         try {
             // token of device
             const response = await deviceAPI.setState(state, token);
-            dispatch(setState(response.body, token))
+            dispatch(setState(response.body.state, token))
         } catch (error) {
-            // ERROR
+            console.log(error)
         }
     };
 };

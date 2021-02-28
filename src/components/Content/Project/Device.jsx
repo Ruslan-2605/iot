@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Device.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDeviceThunkCreator, setStateDeviceThunkCreator } from "../../../redux/reducers/deviceReducer";
+import { deleteDeviceThunkCreator, setStateDeviceThunkCreator } from "../../../redux/reducers/thingsReducer";
 import { getUserToken } from "../../../redux/selectors/authSelector";
-import { getProjectViewed, getActivePage } from "../../../redux/selectors/projectSelector";
+import { getProjectViewed, getActivePage } from "../../../redux/selectors/projectsSelector";
 import { Modal } from "../../utils/Modal"
 import { UpdateDeviceForm } from "./Forms/UpdateDeviceForm"
+import { lastActive } from "../../utils/lastActive"
 import CloseIcon from '@material-ui/icons/Close';
 
 export const Device = React.memo(({ thing }) => {
@@ -22,9 +23,9 @@ export const Device = React.memo(({ thing }) => {
         dispatch(deleteDeviceThunkCreator(id, page, project, token))
     }
 
-    // const kaz = Date.now()
-    // const uf = new Date().getTimezoneOffset() * 60
-    // const fff = kaz + uf
+    const lastSeen = lastActive(thing.entity.activity)
+
+
     const [editMode, setEditMode] = useState(false);
     const [state, setState] = useState(thing.entity.state)
 
@@ -34,7 +35,7 @@ export const Device = React.memo(({ thing }) => {
 
     const deActivateEdit = () => {
         setEditMode(false)
-        dispatch(setStateDeviceThunkCreator(state, token))
+        dispatch(setStateDeviceThunkCreator(state, thing.entity.token))
     };
 
     const onStateChange = (e) => {
@@ -72,12 +73,8 @@ export const Device = React.memo(({ thing }) => {
                     )}
                 </div>
                 <div className={styles.lastSeen}>
-                    2 minutes ago
+                    {lastSeen}
                 </div>
-
-                {/* <button onClick={() => setUpdateDevice(true)}>
-                    Update
-                </button> */}
 
                 <Modal isModal={isUpdateDevice} setModal={setUpdateDevice} title="Update Device">
                     <UpdateDeviceForm

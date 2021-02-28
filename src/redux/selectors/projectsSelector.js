@@ -1,5 +1,5 @@
 const getProject = (state) => {
-    return state.project
+    return state.projects
 }
 
 export const getActivePage = (state) => {

@@ -10,6 +10,7 @@ const SET_ICON = "SET-ICON";
 const SET_VIEWED_PROJECT = "SET-VIEWED-PROJECT";
 const SET_COUNT_PAGE = "SET-COUNT-PAGE";
 const SET_PAGE_PROJECT = "SET-PAGE-PROJECT";
+const SET_INITIAL_PROJECT_VIEWED = "SET-INITIAL-PROJECT-VIEWED";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
@@ -20,7 +21,7 @@ const initialState = {
     iconSelected: 1,
 };
 
-export const projectReducer = (state = initialState, action) => {
+export const projectsReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case SET_PROJECTS:
@@ -66,6 +67,12 @@ export const projectReducer = (state = initialState, action) => {
             return {
                 ...state,
                 page: action.data,
+            };
+
+        case SET_INITIAL_PROJECT_VIEWED:
+            return {
+                ...state,
+                projectViewed: {}
             };
 
         case LOGOUT:
@@ -125,6 +132,11 @@ const setPage = (page) => {
         data: page
     }
 }
+const setInitialProjectViewed = () => {
+    return {
+        type: "SET-INITIAL-PROJECT-VIEWED",
+    }
+}
 
 
 // ActionCreator
@@ -138,6 +150,12 @@ export const setIconActionCreator = (iconSelected) => {
 export const setPageActionCreator = (page) => {
     return (dispatch) => {
         dispatch(setPage(page));
+    };
+}
+
+export const setInitialProjectViewedActionCreator = () => {
+    return (dispatch) => {
+        dispatch(setInitialProjectViewed());
     };
 }
 
@@ -179,11 +197,14 @@ export const updateProjectThunkCreator = (projectForm, token, id, setError) => {
     };
 };
 
-export const deleteProjectThunkCreator = (id, token, username, page) => {
+export const deleteProjectThunkCreator = (id, token) => {
     return async (dispatch) => {
-        const response = await projectAPI.deleteProject(id, token);
-        //Redirect to dashboard
-        //dispatch(getProjectPageThunkCreator(username, token, page))
+        try {
+            const response = await projectAPI.deleteProject(id, token);
+            return response
+        } catch (error) {
+            //error
+        }
     };
 };
 

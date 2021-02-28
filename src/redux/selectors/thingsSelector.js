@@ -1,12 +1,9 @@
 const getDevice = (state) => {
-    return state.device
+    return state.things
 }
 
 export const getThings = (state) => {
     return getDevice(state).things
-}
-export const getDevices = (state) => {
-    return getDevice(state).devices
 }
 export const getPage = (state) => {
     return getDevice(state).page

@@ -3,10 +3,10 @@ import styles from "../../../styles/Dashboard.module.css";
 import {
     createProjectThunkCreator, getProjectPageThunkCreator,
     deleteProjectThunkCreator, updateProjectThunkCreator, getCountPageThunkCreator
-} from "../../../redux/reducers/projectReducer";
+} from "../../../redux/reducers/projectsReducer";
 import { connect } from "react-redux";
 import { getUserName, getUserToken } from "../../../redux/selectors/authSelector";
-import { getActivePage, getProjects } from "../../../redux/selectors/projectSelector";
+import { getActivePage, getProjects } from "../../../redux/selectors/projectsSelector";
 import { DashboardItem } from "./DashboardItem";
 import { Modal } from "../../utils/Modal"
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";

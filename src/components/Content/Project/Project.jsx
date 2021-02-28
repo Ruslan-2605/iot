@@ -1,46 +1,61 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
-import { withRouter } from "react-router-dom";
+import { useHistory, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPage, getThings } from "../../../redux/selectors/deviceSelector";
-import { getUserName, getUserToken } from "../../../redux/selectors/authSelector";
-import { getThingsPageThunkCreator } from "../../../redux/reducers/deviceReducer";
+import { getPage, getThings } from "../../../redux/selectors/thingsSelector";
+import { getUserToken } from "../../../redux/selectors/authSelector";
+import { getThingsPageThunkCreator, setInitialStateActionCreator } from "../../../redux/reducers/thingsReducer";
 import { Modal } from "../../utils/Modal"
 import { CreateDeviceForm } from "./Forms/CreateDeviceForm"
 import { Device } from "./Device";
-import { deleteProjectThunkCreator, getProjectThunkCreator } from "../../../redux/reducers/projectReducer";
-import { getActivePage, getProjectViewed } from "../../../redux/selectors/projectSelector";
+import { deleteProjectThunkCreator, getProjectThunkCreator, setInitialProjectViewedActionCreator } from "../../../redux/reducers/projectsReducer";
+import { getProjectViewed } from "../../../redux/selectors/projectsSelector";
 import SettingsIcon from '@material-ui/icons/Settings';
 import { UpdateProjectForm } from "../Dashboard/Forms/UpdateProjectForm";
 import CreateIcon from '@material-ui/icons/Create';
-import ImportantDevicesIcon from '@material-ui/icons/ImportantDevices';
-import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
+import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 
-export const Project = withRouter((props) => {
+
+export const Project = withAuthRedirect(withRouter((props) => {
 
     let id = props.match.params.projectId;
 
     const dispatch = useDispatch()
+    const history = useHistory()
     const devicePage = useSelector(getPage)
     const token = useSelector(getUserToken)
     const things = useSelector(getThings)
     const project = useSelector(getProjectViewed)
-    const projectPage = useSelector(getActivePage)
-    const username = useSelector(getUserName)
-
 
     useEffect(() => {
         dispatch(getThingsPageThunkCreator(id, devicePage, token))
         dispatch(getProjectThunkCreator(id, token))
-    }, [id]);
+
+        return () => {
+            dispatch(setInitialStateActionCreator())
+            dispatch(setInitialProjectViewedActionCreator())
+        }
+    }, []);
 
     // Состояние модального окна Create Device 
     const [isCreateDevice, setCreateDevice] = useState(false);
 
     // Состояние модального окна Update Project
     const [isUpdateProject, setUpdateProject] = useState(false);
+
+    const deleteProject = (id, token) => {
+        dispatch(deleteProjectThunkCreator(id, token))
+        // .then((response) => {
+        // dispatch(setInitialStateActionCreator());
+        // dispatch(setInitialProjectViewedActionCreator());
+        // history.push({
+        //     pathname: "/dashboard",
+        // })
+        // }
+        // );
+    }
 
     return (
 
@@ -69,10 +84,10 @@ export const Project = withRouter((props) => {
                                     <div>Edit</div>
                                 </button></li>
                                 <li><button onClick={() => {
-                                    dispatch(deleteProjectThunkCreator(id, token, username, projectPage))
+                                    deleteProject(id, token)
                                 }}>
                                     <DeleteIcon />
-                                    <div>Ilya</div>
+                                    <div>Delete</div>
                                 </button></li>
                             </ul>
                         </div>
@@ -97,7 +112,7 @@ export const Project = withRouter((props) => {
         </div >
 
     );
-});
+}));
 
 
 

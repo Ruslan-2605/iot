@@ -1,15 +1,15 @@
 import thunkMiddleWare from "redux-thunk";
 import { authReducer } from "./reducers/authReducer";
-import { deviceReducer } from "./reducers/deviceReducer";
-import { projectReducer } from "./reducers/projectReducer";
+import { thingsReducer } from "./reducers/thingsReducer";
+import { projectsReducer } from "./reducers/projectsReducer";
 
 
 const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
     auth: authReducer,
-    project: projectReducer,
-    device: deviceReducer,
+    projects: projectsReducer,
+    things: thingsReducer,
 });
 
 // let store = createStore(reducers, applyMiddleware(thunkMiddleWare));

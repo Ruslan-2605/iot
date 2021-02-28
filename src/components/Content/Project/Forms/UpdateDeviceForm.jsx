@@ -5,10 +5,10 @@ import { setErrorForm } from "../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
-import { getProjectViewed } from "../../../../redux/selectors/projectSelector";
+import { getProjectViewed } from "../../../../redux/selectors/projectsSelector";
 import { getUserToken } from "../../../../redux/selectors/authSelector";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDeviceThunkCreator } from "../../../../redux/reducers/deviceReducer";
+import { updateDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
 
 export const UpdateDeviceForm = ({ id, defaultValues }) => {
 

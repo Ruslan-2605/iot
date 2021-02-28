@@ -5,12 +5,12 @@ import '../../index.css';
 import { connect } from "react-redux";
 import { getIsAuth } from "../../redux/selectors/authSelector";
 import { logout } from "../../redux/reducers/authReducer"
-import { setIconActionCreator } from "../../redux/reducers/projectReducer"
+import { setIconActionCreator } from "../../redux/reducers/projectsReducer"
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InfoSharpIcon from '@material-ui/icons/InfoSharp';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
-import { getIconSelected } from "../../redux/selectors/projectSelector";
+import { getIconSelected } from "../../redux/selectors/projectsSelector";
 
 export const NavbarComponent = ({ isAuth, iconSelected, logout, setIconActionCreator }) => {
 
