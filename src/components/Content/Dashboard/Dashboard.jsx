@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Dashboard.module.css";
 import {
     createProjectThunkCreator, getProjectPageThunkCreator,
-    deleteProjectThunkCreator, updateProjectThunkCreator, getCountPageThunkCreator
+    deleteProjectThunkCreator, updateProjectThunkCreator
 } from "../../../redux/reducers/projectsReducer";
 import { connect } from "react-redux";
 import { getUserName, getUserToken } from "../../../redux/selectors/authSelector";
@@ -17,7 +17,7 @@ export const Dashboard = (props) => {
     const {
         username, token, page, projects,
         deleteProjectThunkCreator, updateProjectThunkCreator,
-        createProjectThunkCreator, getProjectPageThunkCreator,
+        getProjectPageThunkCreator,
     } = props;
 
     // Состояние модального окна
@@ -55,8 +55,6 @@ export const Dashboard = (props) => {
 
                 <Modal isModal={isCreateProject} setModal={setCreateProject} title="Create Project">
                     <CreateProjectForm
-                        createProjectThunkCreator={createProjectThunkCreator}
-                        token={token}
                         projectsLength={projects.length}
                     />
                 </Modal>
@@ -78,7 +76,6 @@ export const DashboardContainer = withAuthRedirect(connect(mapStateToProps, {
     createProjectThunkCreator,
     deleteProjectThunkCreator,
     updateProjectThunkCreator,
-    getCountPageThunkCreator
 })(Dashboard));
 
 

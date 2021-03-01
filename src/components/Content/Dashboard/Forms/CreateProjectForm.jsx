@@ -5,8 +5,18 @@ import { setErrorForm } from "../../../utils/SetErrorForm";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "../../../../styles/Form.module.css";
+import { getUserName, getUserToken } from "../../../../redux/selectors/authSelector";
+import { createProjectThunkCreator, getPaginationInfoThunkCreator } from "../../../../redux/reducers/projectsReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { getPaginationInfo } from "../../../../redux/selectors/projectsSelector";
 
-export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLength, defaultName, defaultTitle }) => {
+export const CreateProjectForm = ({ projectsLength }) => {
+
+    const dispatch = useDispatch();
+    const token = useSelector(getUserToken);
+    const username = useSelector(getUserName);
+    const { elementPerPage } = useSelector(getPaginationInfo)
+
 
     const schema = yup.object().shape({
         name: yup
@@ -33,8 +43,9 @@ export const CreateProjectForm = ({ createProjectThunkCreator, token, projectsLe
         setErrorForm(e, setError);
     };
 
-    const onSubmit = (projectData) => {
-        createProjectThunkCreator(projectData, token, projectsLength, setError);
+    const onSubmit = async (projectData) => {
+        await dispatch(createProjectThunkCreator(projectData, token, projectsLength, elementPerPage, setError));
+        dispatch(getPaginationInfoThunkCreator(username, token));
     };
 
     return (

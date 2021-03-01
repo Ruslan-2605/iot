@@ -4,19 +4,20 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getActivePage, getCountPage } from "../../../redux/selectors/projectsSelector";
+import { getActivePage, getPaginationInfo } from "../../../redux/selectors/projectsSelector";
 import { getUserToken, getUserName } from "../../../redux/selectors/authSelector";
-import { getCountPageThunkCreator, setPageActionCreator } from "../../../redux/reducers/projectsReducer";
+import { getPaginationInfoThunkCreator, setPageActionCreator } from "../../../redux/reducers/projectsReducer";
 import * as queryString from "query-string";
 
 export const Pagination = (props) => {
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const countPage = useSelector(getCountPage);
+    const paginationInfo = useSelector(getPaginationInfo);
     const username = useSelector(getUserName);
     const token = useSelector(getUserToken);
-    const page = useSelector(getActivePage)
+    const page = useSelector(getActivePage);
+    const countPage = paginationInfo.pages;
 
     const pages = [];
     for (let i = 1; i <= countPage; i++) {
@@ -29,8 +30,8 @@ export const Pagination = (props) => {
     const rightPortionNumber = 5 * portionNumber;
 
     useEffect(() => {
-        dispatch(getCountPageThunkCreator(username, token))
-    }, [])// ОБЩЕЕ КОЛВО ПРОЕКТОВ 
+        dispatch(getPaginationInfoThunkCreator(username, token))
+    }, [])
 
     useEffect(() => {
 

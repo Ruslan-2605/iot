@@ -11,8 +11,8 @@ export const getProjects = (state) => {
 export const getIconSelected = (state) => {
     return getProject(state).iconSelected
 }
-export const getCountPage = (state) => {
-    return getProject(state).countPage
+export const getPaginationInfo = (state) => {
+    return getProject(state).paginationInfo
 }
 export const getProjectViewed = (state) => {
     return getProject(state).projectViewed

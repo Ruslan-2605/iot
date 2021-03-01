@@ -8,14 +8,14 @@ const CREATE_PROJECT = "CREATE-PROJECT";
 const UPDATE_PROJECT = "UPDATE-PROJECT";
 const SET_ICON = "SET-ICON";
 const SET_VIEWED_PROJECT = "SET-VIEWED-PROJECT";
-const SET_COUNT_PAGE = "SET-COUNT-PAGE";
+const SET_PAGINATION_INFO = "SET-PAGINATION-INFO";
 const SET_PAGE_PROJECT = "SET-PAGE-PROJECT";
 const SET_INITIAL_PROJECT_VIEWED = "SET-INITIAL-PROJECT-VIEWED";
 const LOGOUT = "LOGOUT";
 
 const initialState = {
     page: 1,
-    countPage: null,
+    paginationInfo: {},
     projects: [],
     projectViewed: {},
     iconSelected: 1,
@@ -57,10 +57,10 @@ export const projectsReducer = (state = initialState, action) => {
                 projectViewed: action.data,
             };
 
-        case SET_COUNT_PAGE:
+        case SET_PAGINATION_INFO:
             return {
                 ...state,
-                countPage: action.data,
+                paginationInfo: action.data,
             };
 
         case SET_PAGE_PROJECT:
@@ -120,10 +120,10 @@ const setViewedProject = (project) => {
         data: project
     }
 }
-const setCountPage = (count) => {
+const setPaginationInfo = (info) => {
     return {
-        type: "SET-COUNT-PAGE",
-        data: count
+        type: "SET-PAGINATION-INFO",
+        data: info
     }
 }
 const setPage = (page) => {
@@ -171,12 +171,11 @@ export const getProjectPageThunkCreator = (username, token, page) => {
     };
 };
 
-export const createProjectThunkCreator = (projectForm, token, projectLength, setError) => {
+export const createProjectThunkCreator = (projectForm, token, projectLength, elementPerPage, setError) => {
     return async (dispatch) => {
         try {
             const response = await projectAPI.createProject(projectForm, token);
-            if (projectLength < 10) {
-                //10 - максимальное количество проектов на странице
+            if (projectLength < elementPerPage) {
                 dispatch(createProject(response))
             }
         } catch (error) {
@@ -225,11 +224,11 @@ export const getProjectThunkCreator = (id, token) => {
 
 //Get count of Page
 
-export const getCountPageThunkCreator = (username, token) => {
+export const getPaginationInfoThunkCreator = (username, token) => {
     return async (dispatch) => {
         try {
-            const response = await projectAPI.getCountPage(username, token);
-            dispatch(setCountPage(response))
+            const response = await projectAPI.getPaginationInfo(username, token);
+            dispatch(setPaginationInfo(response))
         } catch (error) {
             // 404 PAGE NOT FOUND
         }

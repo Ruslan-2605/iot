@@ -43,9 +43,9 @@ export const projectAPI = {
             .then((response) => response.data);
     },
 
-    getCountPage(username, token) {
+    getPaginationInfo(username, token) {
         return instance
-            .get(`project/page/count?username=${username}`, { 'headers': { 'Authorization': token } })
+            .get(`project/pagination?username=${username}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 

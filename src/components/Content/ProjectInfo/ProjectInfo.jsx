@@ -18,12 +18,11 @@ import AddIcon from '@material-ui/icons/Add';
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
 
 
-export const Project = withAuthRedirect(withRouter((props) => {
+export const ProjectInfo = withAuthRedirect(withRouter((props) => {
 
     let id = props.match.params.projectId;
 
     const dispatch = useDispatch()
-    const history = useHistory()
     const devicePage = useSelector(getPage)
     const token = useSelector(getUserToken)
     const things = useSelector(getThings)
