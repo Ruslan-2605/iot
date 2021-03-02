@@ -8,13 +8,14 @@ import styles from "../../../../styles/Form.module.css";
 import { getUserName, getUserToken } from "../../../../redux/selectors/authSelector";
 import { createProjectThunkCreator, getPaginationInfoThunkCreator } from "../../../../redux/reducers/projectsReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { getPaginationInfo } from "../../../../redux/selectors/projectsSelector";
+import { getPaginationInfo, getProjects } from "../../../../redux/selectors/projectsSelector";
 
-export const CreateProjectForm = ({ projectsLength }) => {
+export const CreateProjectForm = (props) => {
 
     const dispatch = useDispatch();
     const token = useSelector(getUserToken);
     const username = useSelector(getUserName);
+    const projectsLength = useSelector(getProjects).length;
     const { elementPerPage } = useSelector(getPaginationInfo)
 
 

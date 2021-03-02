@@ -51,10 +51,10 @@ export const setCookie = (authData) => {
     }
 }
 
-export const logout = (names) => {
+export const logout = () => {
     return (dispatch) => {
         dispatch(logoutAction());
-        names.map(
+        ["username", "token"].map(
             (name) => {
                 Cookies.remove(name);
             }

@@ -4,8 +4,7 @@ import styles from "../../../styles/Dashboard.module.css";
 
 export const DashboardItem = React.memo((props) => {
 
-    const { project, token, updateProjectThunkCreator } = props;
-
+    const { project } = props;
 
     return (
         <div className={styles.project}>

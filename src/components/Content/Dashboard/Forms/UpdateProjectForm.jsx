@@ -32,8 +32,8 @@ export const UpdateProjectForm = (props) => {
         mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
-            "name": project.name,
-            "title": project.title
+            "name": "",
+            "title": ""
         },
         resolver: yupResolver(schema),
     })

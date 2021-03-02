@@ -17,8 +17,3 @@ export const getPaginationInfo = (state) => {
 export const getProjectViewed = (state) => {
     return getProject(state).projectViewed
 }
-
-
-// export const getDifficultDate = createSelector(select1, select2, (state1, state2) => {
-//    return difficult data
-//)}

@@ -6,9 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
 import { Input } from "../utils/FormСontrollers";
 import { signInThunkCreator } from "../../redux/reducers/authReducer";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-export const SignInForm = ({ signInThunkCreator }) => {
+
+export const SignIn = () => {
+
+    const dispatch = useDispatch();
 
     const schema = yup.object().shape({
         username: yup
@@ -34,7 +37,7 @@ export const SignInForm = ({ signInThunkCreator }) => {
     })
 
     const onSubmit = (authData) => {
-        signInThunkCreator(authData, setError);
+        dispatch(signInThunkCreator(authData, setError));
     };
 
     const onError = (e) => {
@@ -54,11 +57,3 @@ export const SignInForm = ({ signInThunkCreator }) => {
         </form >
     );
 }
-
-const mapStateToProps = (state) => {
-    return {}
-};
-export const SignIn = connect(mapStateToProps, {
-    signInThunkCreator,
-})(SignInForm);
-

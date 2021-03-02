@@ -1,4 +1,3 @@
-
 export const setErrorForm = (e, setError) => {
     Object.keys(e).map(key => {
         return setError(key, {

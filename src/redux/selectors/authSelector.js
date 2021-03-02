@@ -17,7 +17,3 @@ export const getUserToken = (state) => {
 export const getUserId = (state) => {
     return getAuth(state).id
 }
-
-// export const getDifficultDate = createSelector(select1, select2, (state1, state2) => {
-//    return difficult data
-//)}

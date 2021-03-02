@@ -34,31 +34,23 @@ export const Pagination = (props) => {
     }, [])
 
     useEffect(() => {
-
         const parsed = queryString.parse(history.location.search);
-
         let actualPage = page;
-
         if (!!parsed.page) actualPage = Number(parsed.page)
-
         dispatch(setPageActionCreator(actualPage))
-
     }, [])
 
     useEffect(() => {
-
         const query = {};
-
         if (page !== 1) query.page = String(page);
-
         history.push({
             pathname: "/dashboard",
             search: queryString.stringify(query)
         })
     }, [page])
 
-    const onPageChanged = (p) => {
-        dispatch(setPageActionCreator(p))
+    const onPageChanged = (page) => {
+        dispatch(setPageActionCreator(page))
     }
 
     return (
@@ -71,11 +63,11 @@ export const Pagination = (props) => {
             }
 
             {pages
-                .filter((p) => p >= leftPortionNumber && p <= rightPortionNumber)
-                .map((p) => {
+                .filter((page) => page >= leftPortionNumber && page <= rightPortionNumber)
+                .map((page) => {
                     return (
-                        <button key={p.toString()} onClick={() => onPageChanged(p)}
-                        >{p}</button>
+                        <button key={page.toString()} onClick={() => onPageChanged(page)}
+                        >{page}</button>
                     );
                 })}
 

@@ -6,9 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { setErrorForm } from "../utils/SetErrorForm";
 import { Input } from "../utils/FormСontrollers";
 import { signUpThunkCreator } from "../../redux/reducers/authReducer";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
-export const SignUpForm = ({ signUpThunkCreator }) => {
+export const SignUp = () => {
+
+    const dispatch = useDispatch();
 
     const schema = yup.object().shape({
         email: yup
@@ -39,7 +41,7 @@ export const SignUpForm = ({ signUpThunkCreator }) => {
     });
 
     const onSubmit = (authData) => {
-        signUpThunkCreator(authData, setError)
+        dispatch(signUpThunkCreator(authData, setError))
     }
 
     const onError = (e) => {
@@ -61,10 +63,3 @@ export const SignUpForm = ({ signUpThunkCreator }) => {
         </form >
     );
 }
-
-const mapStateToProps = (state) => {
-    return {}
-};
-export const SignUp = connect(mapStateToProps, {
-    signUpThunkCreator,
-})(SignUpForm);

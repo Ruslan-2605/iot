@@ -1,7 +1,7 @@
 import * as axios from "axios";
 import Cookies from 'js-cookie'
 
-let instance = axios.create({
+const instance = axios.create({
     baseURL: "http://localhost:8080/",
 });
 
@@ -18,7 +18,6 @@ export const authAPI = {
                 };
                 return response.data
             })
-
     },
 
     signUp(authData) {

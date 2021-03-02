@@ -6,7 +6,6 @@ export const setErrorInThunk = (error, setError) => {
                 message: error.response.data.message
             })
         } else {
-            // Set stack error
             setError("error", {
                 type: error.toJSON().name,
                 message: error.toJSON().message
