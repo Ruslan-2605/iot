@@ -9,7 +9,7 @@ export const projectAPI = {
 
     getProjectPage(username, token, page) {
         return instance
-            .get(`project/page?count=${page}&username=${username}`,
+            .get(`pagination/project/${page}?username=${username}`,
                 { 'headers': { 'Authorization': token } })
             .then((response) => {
                 return response.data
@@ -18,13 +18,13 @@ export const projectAPI = {
 
     createProject(projectForm, token) {
         return instance
-            .post("project", projectForm, { 'headers': { 'Authorization': token } })
+            .post("crud/project", projectForm, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     deleteProject(id, token) {
         return instance
-            .delete(`project/${id}`,
+            .delete(`crud/project/${id}`,
                 { 'headers': { 'Authorization': token } })
             .then((response) => {
                 return response
@@ -33,19 +33,19 @@ export const projectAPI = {
 
     updateProject(projectForm, token, id) {
         return instance
-            .put(`project/${id}`, projectForm, { 'headers': { 'Authorization': token } })
+            .put(`crud/project/${id}`, projectForm, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     getProject(id, token) {
         return instance
-            .get(`project/${id}`, { 'headers': { 'Authorization': token } })
+            .get(`crud/project/${id}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     getPaginationInfo(username, token) {
         return instance
-            .get(`project/pagination?username=${username}`, { 'headers': { 'Authorization': token } })
+            .get(`pagination/project?username=${username}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 

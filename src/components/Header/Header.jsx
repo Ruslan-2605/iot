@@ -64,8 +64,8 @@ export const HeaderIfAuthFalse = () => {
         <div className={styles.content}>
             <button className={styles.login} onClick={() => setSignIn(true)}>Sign In</button>
             <button className={styles.login} onClick={() => setSignUp(true)}>Sign Up</button>
-            <Modal isModal={isSignIn} setModal={setSignIn} title="Sign In"><SignIn /></Modal>
-            <Modal isModal={isSignUp} setModal={setSignUp} title="Sign Up"><SignUp /></Modal>
+            <Modal isModal={isSignIn} setModal={setSignIn} title="Sign In"><SignIn setSignIn={setSignIn} /></Modal>
+            <Modal isModal={isSignUp} setModal={setSignUp} title="Sign Up"><SignUp setSignIn={setSignIn} setSignUp={setSignUp} /></Modal>
             <ExitToAppIcon />
         </div>
     )

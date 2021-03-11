@@ -10,7 +10,6 @@ import { getPaginationInfoThunkCreator, setPageActionCreator } from "../../../re
 import * as queryString from "query-string";
 
 export const Pagination = (props) => {
-
     const history = useHistory();
     const dispatch = useDispatch();
     const paginationInfo = useSelector(getPaginationInfo);

@@ -8,7 +8,7 @@ import { Input } from "../utils/FormСontrollers";
 import { signUpThunkCreator } from "../../redux/reducers/authReducer";
 import { useDispatch } from "react-redux";
 
-export const SignUp = () => {
+export const SignUp = ({ setSignIn, setSignUp }) => {
 
     const dispatch = useDispatch();
 
@@ -30,7 +30,6 @@ export const SignUp = () => {
     });
 
     const { register, handleSubmit, errors, setError } = useForm({
-        mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
             "email": "",
@@ -40,8 +39,12 @@ export const SignUp = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit = (authData) => {
-        dispatch(signUpThunkCreator(authData, setError))
+    const onSubmit = async (authData) => {
+        const status = await dispatch(signUpThunkCreator(authData, setError))
+        if (status === 200) {
+            setSignUp(false);
+            setSignIn(true);
+        }
     }
 
     const onError = (e) => {

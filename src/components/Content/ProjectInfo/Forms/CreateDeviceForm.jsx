@@ -33,7 +33,6 @@ export const CreateDeviceForm = ({ thingsLength }) => {
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
-        mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
             "name": "",

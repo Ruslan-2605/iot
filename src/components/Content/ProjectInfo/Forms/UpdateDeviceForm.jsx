@@ -29,7 +29,6 @@ export const UpdateDeviceForm = ({ id, defaultValues }) => {
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
-        mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
             ...defaultValues

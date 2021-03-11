@@ -16,14 +16,14 @@ export const authAPI = {
                     Cookies.set("username", response.data.username);
                     Cookies.set("token", response.data.token);
                 };
-                return response.data
+                return response
             })
     },
 
     signUp(authData) {
         return instance
             .post("auth/signUp", authData)
-            .then((response) => response.data);
+            .then((response) => response);
     },
 
 };

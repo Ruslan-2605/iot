@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  iot:
+    container_name: frontend
+    image: azer777/react:0.1          
+    ports:
+      - '3000:80'
+    
+ 

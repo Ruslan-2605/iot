@@ -7,11 +7,13 @@ import { setErrorForm } from "../utils/SetErrorForm";
 import { Input } from "../utils/FormСontrollers";
 import { signInThunkCreator } from "../../redux/reducers/authReducer";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 
-export const SignIn = () => {
+export const SignIn = ({ setSignIn }) => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const schema = yup.object().shape({
         username: yup
@@ -27,7 +29,6 @@ export const SignIn = () => {
     });
 
     const { handleSubmit, register, errors, setError } = useForm({
-        mode: "onChange",
         reValidateMode: "onChange",
         defaultValues: {
             "password": "",
@@ -36,8 +37,12 @@ export const SignIn = () => {
         resolver: yupResolver(schema),
     })
 
-    const onSubmit = (authData) => {
-        dispatch(signInThunkCreator(authData, setError));
+    const onSubmit = async (authData) => {
+        const status = await dispatch(signInThunkCreator(authData, setError));
+        if (status === 200) {
+            history.push("/dashboard");
+            setSignIn(false);
+        }
     };
 
     const onError = (e) => {

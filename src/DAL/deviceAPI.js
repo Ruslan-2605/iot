@@ -8,25 +8,25 @@ export const deviceAPI = {
 
     getThings(id, page, token) {
         return instance
-            .get(`/project/thing/page/${id}?count=${page}`, { 'headers': { 'Authorization': token } })
+            .get(`/pagination/thing/${id}/${page}`, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     createDevice(deviceForm, token) {
         return instance
-            .post(`device`, deviceForm, { 'headers': { 'Authorization': token } })
+            .post(`crud/device`, deviceForm, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     updateDevice(deviceForm, token, id) {
         return instance
-            .put(`device/${id}`, deviceForm, { 'headers': { 'Authorization': token } })
+            .put(`crud/device/${id}`, deviceForm, { 'headers': { 'Authorization': token } })
             .then((response) => response.data);
     },
 
     deleteDevice(id, token) {
         return instance
-            .delete(`device/${id}`,
+            .delete(`crud/device/${id}`,
                 { 'headers': { 'Authorization': token } })
             .then((response) => {
                 return response
@@ -35,7 +35,7 @@ export const deviceAPI = {
 
     setState(state, token) {
         return instance
-            .post(`/deviceState/${token}?state=${state}`)
+            .post(`deviceState/${token}?state=${state}`)
             .then((response) => response.data);
     },
 
