@@ -5,7 +5,8 @@
     }
     .lastSeen{   
         bottom: 5px;
-        right: 5px;  
+        right: 5px;
+        position: fixed;   
     }
 }
 @media (min-width: 751px){
@@ -16,7 +17,8 @@
     }
     .lastSeen{   
         bottom: 12px;
-        right: 12px;  
+        right: 12px;
+        position: absolute;   
     }
 
 }
@@ -97,5 +99,4 @@
 }
 .lastSeen{
     font-size: 12px;
-    position: fixed;    
 }
