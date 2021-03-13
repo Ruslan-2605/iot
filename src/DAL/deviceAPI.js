@@ -36,7 +36,7 @@ export const deviceAPI = {
     setState(state, token) {
         return instance
             .post(`deviceState/${token}?state=${state}`)
-            .then((response) => response.data);
+            .then((response) => response);
     },
 
 };

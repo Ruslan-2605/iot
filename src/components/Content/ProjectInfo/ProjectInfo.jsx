@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../../styles/Project.module.css";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPage, getThings } from "../../../redux/selectors/thingsSelector";
 import { getUserToken } from "../../../redux/selectors/authSelector";
 import { getThingsPageThunkCreator, setInitialStateActionCreator } from "../../../redux/reducers/thingsReducer";
 import { Modal } from "../../utils/Modal"
 import { CreateDeviceForm } from "./Forms/CreateDeviceForm"
-import { Device } from "./Device";
+import { Device } from "./Device/Device";
 import { deleteProjectThunkCreator, getProjectThunkCreator, setInitialProjectViewedActionCreator } from "../../../redux/reducers/projectsReducer";
 import { getProjectViewed } from "../../../redux/selectors/projectsSelector";
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -16,7 +16,6 @@ import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
-
 
 export const ProjectInfo = withAuthRedirect(withRouter((props) => {
 
@@ -46,14 +45,6 @@ export const ProjectInfo = withAuthRedirect(withRouter((props) => {
 
     const deleteProject = (id, token) => {
         dispatch(deleteProjectThunkCreator(id, token))
-        // .then((response) => {
-        // dispatch(setInitialStateActionCreator());
-        // dispatch(setInitialProjectViewedActionCreator());
-        // history.push({
-        //     pathname: "/dashboard",
-        // })
-        // }
-        // );
     }
 
     return (

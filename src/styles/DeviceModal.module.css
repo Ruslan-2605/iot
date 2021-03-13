@@ -1,0 +1,101 @@
+@media (max-width: 750px){
+    .modalBody{
+        width: 100%;
+        height: 100%;
+    }
+    .lastSeen{   
+        bottom: 5px;
+        right: 5px;  
+    }
+}
+@media (min-width: 751px){
+    .modalBody{
+        max-width: 670px;
+        min-height: 670px;
+        border-radius: 8px;
+    }
+    .lastSeen{   
+        bottom: 12px;
+        right: 12px;  
+    }
+
+}
+
+.modalWrapper.open{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+}
+.modalWrapper.close{
+    display:none;
+}
+
+.modalBody{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    width: 100%;
+    overflow-y: auto;   
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 1000;
+}
+.title{
+    font-size: 50px; 
+    box-sizing: border-box; 
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    background-color: #b3294e;
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+ }
+ .title p{
+    margin-top: 30px;
+    text-transform: capitalize;  
+ }
+.btnClose{
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    color: #fff;
+    background-color: #b3294e;
+}
+.content{
+    display: flex; 
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.icons{
+    display: flex;
+    position: absolute;
+    top: 87px;
+    flex-direction: row;
+    justify-content: space-between; 
+    width: 100%;
+    box-sizing: border-box;
+}
+.icons button{
+    color: #fff;
+    background-color: #b3294e;
+    margin-left: 15px;
+}
+.icons button:last-child{
+    margin-right: 15px;
+}
+.lastSeen{
+    font-size: 12px;
+    position: fixed;    
+}

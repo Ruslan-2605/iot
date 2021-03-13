@@ -1,3 +1,24 @@
+@media (max-width: 479px){
+    .modalBody{
+        width: 90%;
+        max-width: 400px;
+        height: 420px;
+    }
+}
+@media (max-width: 390px){
+    .modalBody{
+        width: 95%;
+        max-width: 400px;
+        height: 420px;
+    }
+}
+@media (min-width: 480px){
+    .modalBody{
+        width: 420px;
+        height: 440px;
+    }
+}
+
 .modalWrapper.open{
     position: fixed;
     top: 0;
@@ -8,7 +29,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 3;
 }
 .modalWrapper.close{
     display:none;
@@ -17,17 +37,15 @@
 .modalBody{
     position: relative;
     display: flex;
-    max-width: 420px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: #fff;
-    width: 100%;
-    min-height: 440px;
     overflow-y: auto;   
     box-sizing: border-box;
     margin: 0;
     border-radius: 8px;
+    z-index: 1000;
 }
 .title{
     font-size: 30px;  

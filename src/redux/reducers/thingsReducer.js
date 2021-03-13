@@ -188,6 +188,7 @@ export const deleteDeviceThunkCreator = (id, page, project, token) => {
         try {
             const response = await deviceAPI.deleteDevice(id, token);
             dispatch(getThingsPageThunkCreator(project, page, token))
+            return response.status
         } catch (error) {
             // ERROR
         }
@@ -199,7 +200,10 @@ export const setStateDeviceThunkCreator = (state, token) => {
         try {
             // token of device
             const response = await deviceAPI.setState(state, token);
-            dispatch(setState(response.body.state, token))
+            if (response.status === 200) {
+                dispatch(setState(response.data.body.state, token))
+            }
+            return response.status
         } catch (error) {
             console.log(error)
         }

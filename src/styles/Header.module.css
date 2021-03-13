@@ -38,13 +38,13 @@
 }
 .header{
     grid-area: h;
+    position: fixed; 
     background-color: #fff;   
     display: flex;
     align-items: center;
     width: 100%;
     box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     box-sizing: border-box;
-    position: fixed; 
     height: 60px;
     z-index: 3;
 }

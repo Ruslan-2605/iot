@@ -37,7 +37,13 @@
         padding-right: 16px;
         padding-left: 16px;
         border-left: 1px solid rgba(0, 0, 0, 0.1);
-        width: 60px;  
+        width: 60px;
+        display: flex; 
+        flex-direction: column;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+          
     }
     .icon:after{
         display: flex; 
@@ -55,8 +61,8 @@
     grid-area: n;
     background-color: #343a40;
     position: fixed; 
-    z-index: 3;
     top: 60px; 
+    z-index: 3;
 }
 .icons{
     display: flex;

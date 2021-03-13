@@ -19,12 +19,6 @@
     gap: 10px;
 }
 
-/* .projectInfo{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-} */
-
 .name{
     font-weight: 700;
     font-size: 20px;

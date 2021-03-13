@@ -4,13 +4,13 @@ export const lastActive = (data) => {
     let time = Math.round((dateNow - activity) / 60)
     if ((1440 > time && time > 60)) {
         time = Math.round(time / 60)
-        return `${time} hours ago`
+        return `Last active ${time} hours ago`
     } else if (time > 1440) {
         time = Math.round(time / 60 / 24)
-        return `${time} day ago`
+        return `Last active ${time} day ago`
     } else if (time < 5) {
-        return `was recently active`
+        return `Was recently active`
     } else {
-        return `${time} minutes ago`
+        return `Last active ${time} minutes ago`
     }
 }
