@@ -26,14 +26,14 @@ export const CreateDeviceForm = ({ thingsLength }) => {
             .max(16, "Name max size is 16"),
         state: yup
             .string()
-            .min(2, "Name size is less than 2")
+            .min(2, "State size is less than 2")
             .max(16, "State max size is 16"),
         states: yup
             .string()
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
-        reValidateMode: "onChange",
+        reValidateMode: "onSubmit",
         defaultValues: {
             "name": "",
             "state": "",

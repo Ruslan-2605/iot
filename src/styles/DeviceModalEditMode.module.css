@@ -53,7 +53,6 @@
     z-index: 1000;
 }
 .title{
-    font-size: 50px; 
     box-sizing: border-box; 
     color: #fff;
     font-weight: 700;
@@ -83,9 +82,9 @@
 .icons{
     display: flex;
     position: absolute;
-    top: 87px;
+    top: 119px;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
     width: 100%;
     box-sizing: border-box;
 }
@@ -100,3 +99,55 @@
 .lastSeen{
     font-size: 12px;
 }
+.arrowBackIcon{
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    color: #fff;
+    background-color: #b3294e;
+}
+.udpateNameForm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 100%;
+    height: 150px;
+    font-weight: 700;
+}
+
+.updateNameInput{
+    font-size: 50px;
+    width: 80%;
+    color: #b3294e;
+    font-weight: 700;
+    text-align: center;
+    background-color: #f5f5f5;
+    height: 71px;
+    border-radius: 6px;
+    margin-left: 27px;
+}
+.updateNameInput::placeholder{
+    font-weight: 400;
+    font-size: 40px;
+}
+.updateNameIcon{
+    color:#f5f5f5;
+    background-color: #b3294e;   
+    margin-left: 5px;
+}
+.submitBtn{
+    height: 45px;
+    color: #fff;
+    background-color: #b3294e;
+    font-weight: 700;
+    border-radius: 0 0 6px 6px;
+    position: absolute;
+    bottom: 0px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+

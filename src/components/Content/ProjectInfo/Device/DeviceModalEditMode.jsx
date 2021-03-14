@@ -1,59 +1,51 @@
-import React, { useState } from "react";
-import styles from "../../../../styles/DeviceModal.module.css";
+import React, { useEffect, useState } from "react";
+import styles from "../../../../styles/DeviceModalEditMode.module.css";
 import CloseIcon from '@material-ui/icons/Close';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
-import { useDispatch, useSelector } from "react-redux";
-import { getPage } from "../../../../redux/selectors/thingsSelector";
-import { getProjectViewed } from "../../../../redux/selectors/projectsSelector";
-import { getUserToken } from "../../../../redux/selectors/authSelector";
-import { deleteDeviceThunkCreator } from "../../../../redux/reducers/thingsReducer";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { lastActive } from "../../../utils/lastActive";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { UpdateNameDeviceForm } from "../Forms/UpdateNameDeviceForm";
 
+export const DeviceModalEditMode = (props) => {
 
-export const DeviceModal = (props) => {
-
-    const { isModal, setModal, thing, setEditMode, children } = props;
+    const { isModal, setModal, thing, setEditMode, states, children } = props;
 
     const id = thing.entity.id; //device id
     const name = thing.entity.name;
     const token = thing.entity.token
 
+    const [deviceForm, setDeviceForm] = useState({ "states": states, "name": name })
+
+    useEffect(() => setDeviceForm({ ...deviceForm, "states": states }), [states])
+
+    const udpateDevice = () => {
+        console.log(deviceForm)
+    }
+
     return (
         <div className={isModal ? styles.modalWrapper + " " + styles.open : styles.modalWrapper + " " + styles.close} >
             <div className={styles.modalBody}>
+
+                <button className={styles.arrowBackIcon} onClick={() => setEditMode(false)}><ArrowBackIcon /></button>
                 <button className={styles.btnClose} onClick={() => setModal(false)}><CloseIcon /></button>
+
                 <div className={styles.title}>
-                    <p>{name}</p>
+                    <UpdateNameDeviceForm name={name} deviceForm={deviceForm} setDeviceForm={setDeviceForm} />
                     <Icons id={id} setModal={setModal} token={token} setEditMode={setEditMode} />
                 </div>
                 <div className={styles.content}>
                     {children}
                 </div>
-                <LastActive activity={thing.entity.activity} />
+                <button className={styles.submitBtn} onClick={udpateDevice}>Submit</button>
             </div>
         </div>
     );
 };
 
-export const Icons = ({ id, token, setModal, setEditMode }) => {
-
-    const dispatch = useDispatch();
-
-    const page = useSelector(getPage);
-    const project = useSelector(getProjectViewed).id; //project id
-    const userToken = useSelector(getUserToken);
+export const Icons = ({ token }) => {
 
     const [isCopy, setCopy] = useState(false);
-
-    const deleteDevice = async () => {
-        const status = await dispatch(deleteDeviceThunkCreator(id, page, project, userToken))
-        if (status === 200) {
-            setModal(false)
-        }
-    }
 
     const getTextIsCopied = () => {
         if (isCopy) {
@@ -71,10 +63,6 @@ export const Icons = ({ id, token, setModal, setEditMode }) => {
                     onCopy={() => setCopy(true)}>
                     <button><FileCopyOutlinedIcon /> {getTextIsCopied()}</button>
                 </CopyToClipboard>
-            </div>
-            <div>
-                <button onClick={() => setEditMode(true)}><EditIcon /></button>
-                <button onClick={deleteDevice}><DeleteIcon /></button>
             </div>
         </div>
     );

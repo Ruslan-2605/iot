@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import styles from "../../../../styles/Device.module.css";
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { DeviceModal } from "./DeviceModal";
+import { DeviceModalEditMode } from "./DeviceModalEditMode";
 import { DeviceInfo } from "./DeviceInfo";
+import { DeviceInfoEditMode } from "./DeviceInfoEditMode";
+
 
 export const Device = React.memo(({ thing }) => {
 
     // Состояние модального окна
     const [isDeviceModal, setDeviceModal] = useState(false);
+
+    const [editMode, setEditMode] = useState(false);
+
+    const [states, setStates] = useState(thing.entity.states)
 
     return (
         <div className={styles.device}>
@@ -25,9 +32,21 @@ export const Device = React.memo(({ thing }) => {
                     <div>{thing.entity.state}</div>
                 </div>
 
-                <DeviceModal isModal={isDeviceModal} setModal={setDeviceModal} thing={thing}>
-                    <DeviceInfo thing={thing} />
-                </DeviceModal>
+                {!editMode
+                    ?
+                    <DeviceModal isModal={isDeviceModal} setModal={setDeviceModal} thing={thing} setEditMode={setEditMode}>
+                        <DeviceInfo thing={thing} />
+                    </DeviceModal>
+                    :
+                    <DeviceModalEditMode
+                        isModal={isDeviceModal}
+                        setModal={setDeviceModal} thing={thing}
+                        setEditMode={setEditMode}
+                        states={states}
+                    >
+                        <DeviceInfoEditMode thing={thing} states={states} setStates={setStates} />
+                    </DeviceModalEditMode>
+                }
             </div>
         </div>
     );

@@ -31,7 +31,7 @@ export const CreateProjectForm = (props) => {
     });
 
     const { handleSubmit, register, setError, errors } = useForm({
-        reValidateMode: "onChange",
+        reValidateMode: "onSubmit",
         defaultValues: {
             "name": "",
             "title": ""
